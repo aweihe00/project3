@@ -1,18 +1,29 @@
 const express = require("express");
-const upload = require("./petlife/utils/upload");
-const cors = require("cors");
-const PORT = process.env.PORT || 7000
+const mongoose = require("mongoose");
 
-const server = express();
+const app = express();
+const PORT = process.argv.PORT || 3000;
 
-var corsOptions = {
-    origin: "*",
-    optionsSuccessStatus: 200
-};
+require("./routes/html-routes.js")(app);
+require("./routes/api-routes.js")(app);
 
-server.use(cors(corsOptions));
-server.post("/upload", upload);
+const MONGODB_URI =
+  process.env.MONGODB_URI || "mongodb://localhost/petdb";
 
-server.listen(PORT, () => {
-    console.log("Serving listening on " + PORT)
-})
+mongoose
+  .connect(MONGODB_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err));
+
+const db = mongoose.connection;
+
+db.on("error", console.error.bind(console, "connection error:"));
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.use(express.static("public"));
+
+app.listen(PORT, function() {
+  console.log("App listening on Port: " + PORT);
+});
