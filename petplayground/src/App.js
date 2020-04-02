@@ -1,16 +1,21 @@
-import React, { Component }from 'react';
-import Upload from "../utils/upload";
+  
+import React from "react";
+import LoginPage from "./pages/LoginPage";
+import CreateAccountPage from "./pages/CreateAccountPage";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-class App extends Component {
-render() {
-  return (
-    <div className="App">
-      <div className="Card">
-        <Upload />
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>Hello!</h1>
+        <Router>
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/createAccount" component={CreateAccountPage} />
+        </Router>
       </div>
-    </div>
-  )
-}
+    );
+  }
 }
 
 export default App;
