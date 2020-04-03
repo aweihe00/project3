@@ -4,6 +4,8 @@ import CreateAccountPage from "./pages/CreateAccountPage";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/sidebar";
 import Header from "./components/Header/header";
+import Footer from "./components/Footer";
+import Home from "./pages/Home"
 class App extends React.Component {
   render() {
     return (
@@ -13,12 +15,14 @@ class App extends React.Component {
           <div className="row">
             <Sidebar />
             <div className="col-8">
+              <Route exact path = '/' component = {Home}/>
               <Route exact path="/login" component={LoginPage} />
               <Route
                 exact
                 path="/createAccount"
                 component={CreateAccountPage}
               />
+              <Footer/>
             </div>
           </div>
         </div>
@@ -26,4 +30,3 @@ class App extends React.Component {
     );
   }
 }
-export default App;
