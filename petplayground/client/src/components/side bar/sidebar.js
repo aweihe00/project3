@@ -13,13 +13,13 @@ function Sidebar() {
           <NavLink className="nav-link" to="/petInfo">Pet Info</NavLink>
         </li>
         <li className="nav-item">
-          <NavLink className="nav-link" to="/prescription">Prescription</NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" to="/doctorsVisits"> Visits</NavLink>
-        </li>
-        <li className="nav-item">
           <NavLink className="nav-link" to="/petSitter">Pet Sitter</NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" to="/doctorsVisits">Visits</NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" to="/prescription">Prescription</NavLink>
         </li>
       </ul>
     </div>

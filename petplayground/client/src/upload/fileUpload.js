@@ -6,7 +6,6 @@ export default class FileUpload extends Component {
         uploading: false,
         images: []
     }
-    
 }
 
 require("dotenv").config();
@@ -18,12 +17,15 @@ cloudinary.config({
   api_key: process.env.API_KEY, 
   api_secret: process.env.API_SECRET
 })
+
 const corsOptions = {
     origin: "*",
     optionsSuccessStatus: 200
 };
+
 app.use(cors(corsOptions));
 app.post("/upload", upload);
+
 Collapse
 
 

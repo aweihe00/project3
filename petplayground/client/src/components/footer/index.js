@@ -3,7 +3,7 @@ import "./style.scss";
 function footer() {
   return (
     <footer className="footer">
-      <span>PetLife 2019</span>
+      <span>PetPlayground 2020</span>
     </footer>
   );
 }
