@@ -1,18 +1,21 @@
 .Header {
-    background: #ccc;
+    background: rgb(187, 186, 186);
     margin-right: 0;
     height: 80px;
-    .logo {
-      background: #e6e6e6;
-      padding-left: 0;
-      padding-right: 0;
-      text-align: center;
-    }
-    img {
-      width: 130px;
-      margin: 10px auto;
-    }
-    .navbar {
-    }
+}
+
+.logo {
+    background: #faf9f9;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+}
+    
+img {
+    width: 130px;
+    margin: 10px auto;
+}
+
+.navbar {
 }
   
