@@ -16,7 +16,7 @@ function Sidebar() {
           <a className="nav-link" href="/prescription">Prescription</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/doctorsVisits">Doctors Visits</a>
+          <a className="nav-link" href="/Visits">Doctors Visits</a>
         </li>
         <li className="nav-item">
           <a className="nav-link" href="/petSitter">Pet Sitter</a>
