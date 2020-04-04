@@ -1,6 +1,7 @@
 import React from "react";
 import "./header.scss";
 import UserContext from '../../context/UserContext'
+
 const Header = props => (
   <UserContext.Consumer>
     {context => {
@@ -21,8 +22,5 @@ const Header = props => (
   }
   </UserContext.Consumer>
 );
+
 export default Header;
-
-
-
-

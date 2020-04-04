@@ -1,16 +1,19 @@
 import "./style.scss";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
 class VisitsPage extends Component {
     state = {
         aresult: []
     }
+
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
             [name]: value
         });
     };
+
     render() {
         return (
             <div className='card' >
@@ -33,6 +36,7 @@ class VisitsPage extends Component {
                             <td>@mdo</td>
                             <td> <Link>See Details</Link></td>
                         </tr>
+
                     </tbody>
                 </table>
                 <h2>Future Visits</h2>
@@ -54,8 +58,10 @@ class VisitsPage extends Component {
                             <td>@mdo</td>
                             <td> <Link>See Details</Link></td>
                         </tr>
+
                     </tbody>
                 </table>
+
                 <h2>Add Visits</h2>
                 <table class="table">
                     <tbody>
@@ -85,13 +91,17 @@ class VisitsPage extends Component {
                                 value={this.state.hospital}
                                 onChange={this.handleInputChange}
                             /></td>
+
                             <td> <Link>Add Details</Link></td>
                         </tr>
+
                     </tbody>
                     <button>Save</button>
                 </table>
+
             </div>
         );
     }
 }
+
 export default VisitsPage;
