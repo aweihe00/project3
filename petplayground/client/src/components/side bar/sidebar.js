@@ -1,28 +1,30 @@
-  
 import React from "react";
 import "./sidebar.scss";
-import { NavLink } from "react-router-dom";
+
 function Sidebar() {
   return (
     <div id="sidebar" className="col-3">
+
       <ul className="nav flex-column">
         <li className="nav-item">
-          <NavLink className="nav-link" to="/petFamily">Pet Family</NavLink>
+          <a className="nav-link active" href="petFamily">Pet Family</a>
         </li>
         <li className="nav-item">
-          <NavLink className="nav-link" to="/petInfo">Pet Info</NavLink>
+          <a className="nav-link" href="/petInfo">Pet Info</a>
         </li>
         <li className="nav-item">
-          <NavLink className="nav-link" to="/petSitter">Pet Sitter</NavLink>
+          <a className="nav-link" href="/prescription">Prescription</a>
         </li>
         <li className="nav-item">
-          <NavLink className="nav-link" to="/doctorsVisits">Visits</NavLink>
+          <a className="nav-link" href="/doctorsVisits">Doctors Visits</a>
         </li>
         <li className="nav-item">
-          <NavLink className="nav-link" to="/prescription">Prescription</NavLink>
+          <a className="nav-link" href="/petSitter">Pet Sitter</a>
         </li>
+        
       </ul>
     </div>
   );
 }
+
 export default Sidebar;
