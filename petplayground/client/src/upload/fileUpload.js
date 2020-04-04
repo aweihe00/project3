@@ -4,11 +4,13 @@ import { API_URL } from "../utils/API";
 import Loading from "./Loading";
 import Button from "./Button";
 import './fileUpload.scss'
+
 export default class FileUpload extends Component {
     state = {
         uploading: false,
         images: []
     }
+    
     onChange = e => {
       console.log(e.target)
         const files = Array.from(e.target.files)
@@ -39,7 +41,9 @@ export default class FileUpload extends Component {
           images: this.state.images.filter(image => image.public_id !== id)
         })
       }
+      
       render() {
+        
         const { uploading, images } = this.state
     
         const content = () => {
@@ -62,7 +66,3 @@ export default class FileUpload extends Component {
         )
       }
     }
-Collapse
-
-
-
