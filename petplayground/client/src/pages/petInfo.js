@@ -1,76 +1,25 @@
-import React, { Component } from "react";
-import { render } from "react-dom";
-import Images from "./Images";
-import { API_URL } from "../utils/API";
-import Loading from "./Loading";
-import Button from "./Button";
-import './fileUpload.scss'
+import React from "react";
+import "./petInfo.css";
+import FileUpload from "../upload/fileUpload";
 
-class FileUpload extends Component {
-  state = {
-    uploading: false,
-    images: [],
-    imageURL: ""
-  }
-
-  onChange = e => {
-
-    const files = Array.from(e.target.files)
-    this.setState({ uploading: true })
-
-    const formData = new FormData()
-
-    files.forEach((file, i) => {
-      formData.append(i, file)
-    })
-
-    fetch(`${API_URL}/image-upload`, {
-      method: 'POST',
-      body: formData
-    })
-      .then(res => res.json())
-      .then(images => {
-        this.setState({
-          uploading: false,
-          images: images,
-          imageURL: images[0].url
-        })
-        this.props.onComplete(images[0].url);
-      })
-  }
-
-  removeImage = id => {
-
-    this.setState({
-      images: this.state.images.filter(image => image.public_id !== id)
-    })
-  }
-  render() {
-    const { uploading, images } = this.state
-
-    const content = () => {
-      switch (true) {
-        case uploading:
-          return <Loading />
-        case images.length > 0:
-          return <Images images={images} removeImage={this.removeImage} imageURL={this.imageURL} />
-        default:
-          return <Button onChange={this.onChange} onClick={this.removeImage} />
-      }
-    }
-
-    return (
-      <div>
-        <div className='button'>
-          {content()}
+function PetInfo(props) {
+  return (
+    <div className="petInfoCont">
+      <div className="container">
+        <h1>Pet Info</h1>
+      </div>
+      <div className="jumbotron petInfoJumbo">
+        <div className="col text-right petInfoImage"></div>
+        <div className="col text-start">
+          <p>Name:</p>
+          <p>Nicknames:</p>
+          <p>Birthday:</p>
+          <p>Diet:</p>
+          <p>Perscription:</p>
         </div>
       </div>
-    )
-  }
+    </div>
+  );
 }
 
-FileUpload.defaultProps = {
-  onComplete: function () {}
-}
-
-export default FileUpload;
+export default PetInfo;
