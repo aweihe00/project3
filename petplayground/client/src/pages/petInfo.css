@@ -5,9 +5,11 @@
     font-weight: bolder;
     border-radius: 40px;
 }
+  
 .petInfoImage {
     float: right;
 }
+  
 .petInfoCont {
     margin: 75px;
 }
