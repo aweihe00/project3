@@ -12,16 +12,17 @@ import Home from "./pages/Home";
 import Auth from "./utils/Auth";
 import PetInfo from "./pages/PetInfo";
 import petFamily from "./pages/petFam"
+
 class App extends React.Component {
-    state = {
-      user: false
-    }
-    setUser = (user) => {
-      this.setState({ user });
-    }
-    componentDidMount() {
-      // if token exists
-        // go ask server for user associated with token
+  state = {
+    user: false
+}
+
+setUser = (user) => {
+    this.setState({ user });
+}
+
+componentDidMount() {
       if (Auth.isLoggedIn()) {
         axios.get("/api/me", {
           headers: {
@@ -32,18 +33,19 @@ class App extends React.Component {
         });
       }
     }
-  render() {
-    const {user} = this.state;
-    const setUser = this.setUser;
+
+render() {
+  const {user} = this.state;
+  const setUser = this.setUser;
     return (
       <Router>
       <UserContext.Provider value={{setUser, user}}>
         <div className="container-fluid">
           <Header />
-          <div className="row">
+          <div className="row body-container">
             {this.state.user ? <Sidebar /> : null}
             <div className={this.state.user ? "col-8" :"col-12" }>
-                <ProtectedRoutes exact path='/' component={Home}/>
+                <Route exact path="/" component={Home}/>
                 <Route exact path="/login" component={LoginPage} />
                 <Route exact path="/createAccount" component={CreateAccountPage} />
                 <Route exact path="/petinfo" component={PetInfo} />

@@ -3,12 +3,15 @@ import "./header.scss";
 import UserContext from "../../context/UserContext";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Auth from "../../utils/Auth";
+
 class Header extends Component {
   handleLogOut = () => {
-    Auth.logOut();
-    // cb missing
-  };
-  render() {
+    Auth.logOut(() => {
+      window.location.href = "/";
+  });
+};
+
+render() {
     return (
       <UserContext.Consumer>
         {context => {
