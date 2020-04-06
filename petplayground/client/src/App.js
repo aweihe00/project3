@@ -8,23 +8,24 @@ import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
 import Sidebar from "./components/Sidebar/sidebar";
 import Header from "./components/Header/header";
 import Footer from "./components/Footer";
+
 import Visits from "./pages/Visits";
 import Home from "./pages/Home";
 import Auth from "./utils/Auth";
 import PetInfo from "./pages/PetInfo";
 import AddDetailPage from "./pages/AddDetailPage";
-import PrescriptionPage from "./pages/Prescriptions";
-import "./global.scss";
+import PetSitter from "./pages/PetSitter";
+
 class App extends React.Component {
   state = {
     user: false
   };
+
   setUser = user => {
     this.setState({ user });
   };
+
   componentDidMount() {
-    // if token exists
-    // go ask server for user associated with token
     if (Auth.isLoggedIn()) {
       axios
         .get("/api/me", {
@@ -37,6 +38,7 @@ class App extends React.Component {
         });
     }
   }
+
   render() {
     const { user } = this.state;
     const setUser = this.setUser;
@@ -47,9 +49,7 @@ class App extends React.Component {
             <Header />
             <div className="row">
               {this.state.user ? <Sidebar /> : null}
-              <div
-                className={this.state.user ? "col-9 main-content" : "col-12"}
-              >
+              <div className={this.state.user ? "col-8" : "col-12"}>
                 <ProtectedRoutes exact path="/" component={Home} />
                 <Route exact path="/login" component={LoginPage} />
                 <Route
@@ -70,22 +70,7 @@ class App extends React.Component {
                     />
                   )}
                 />
-                <ProtectedRoutes
-                  exact
-                  path="/prescription"
-                  component={PrescriptionPage}
-                />
-                <ProtectedRoutes
-                  exact
-                  path="/prescription/addDetail"
-                  render={props => (
-                    <AddDetailPage
-                      {...props}
-                      pageTitle="Presciption"
-                      postTo="/api/prescription"
-                    />
-                  )}
-                />
+                <Route exact path="/petSitter" component={PetSitter} />
               </div>
             </div>
           </div>
@@ -95,4 +80,5 @@ class App extends React.Component {
     );
   }
 }
+
 export default App;
