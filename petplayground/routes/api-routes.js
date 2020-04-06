@@ -1,56 +1,31 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const authWare = require("../customMiddleware/authware");
-var db = require("../models");
-const Pet = require("../models/Pets");
-
-
-
-module.exports = function (app) {
-  app.get("/api/visits", function (req, res) {
-    Pet
-      .find({})
-      .then(function (found) {
-        res.json(found)
-      })
-      .catch(function (err) {
-        res.status(500).json(err);
-      });
-  })
-
-  app.post("/api/visits", function (req, res) {
-    console.log(req.body);
-    Pet
-      .create(req.body)
-      .then(function (saved) {
-        res.json({ message: "saved" });
-      })
-      .catch(function (err) {
-        res.status(500).json(err);
-      });
-  });
-
-  app.post("/api/signup", function (req, res) {
+const petsConroller = require("../controllers/petsConroller");
+const router = require("express").Router();
+module.exports = function(app) {
+ 
+  app.post("/api/signup", function(req, res) {
     console.log(req.body);
     User.create(req.body)
-      .then(function (result) {
+      .then(function(result) {
         res.json({
           message: "user created"
         });
       })
-      .catch(function (err) {
+      .catch(function(err) {
         res.status(500).json({
           error: err.message
         });
       });
   });
-
-  app.post("/api/authenticate", function (req, res) {
-    console.log(req.body);
+  
+  app.post("/api/authenticate", function(req, res) {
+    console.log(req.body + "auth");
     const { username, password } = req.body;
     User.findOne({
       username: username
-    }).then(function (dbUser) {
+    }).then(function(dbUser) {
       if (!dbUser)
         return res.status(401).json({
           message: "Username and or password is incorrect"
@@ -62,7 +37,6 @@ module.exports = function (app) {
           },
           "secretKey"
         );
-
         res.json({
           id: dbUser._id,
           username: dbUser.username,
@@ -75,15 +49,18 @@ module.exports = function (app) {
       }
     });
   });
-
   app.get("/api/me", authWare, function (req, res) {
     res.json({ username: req.user.username });
   })
-
-  app.get("/api/protected", authWare, function (req, res) {
+    app.get("/api/protected", authWare, function(req, res) {
     const user = req.user;
     res.json({
       message: user.username + ", should be protected"
     });
   });
+  app.post("/api/savePets", petsConroller.create);
 };
+
+
+
+
