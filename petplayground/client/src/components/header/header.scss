@@ -1,21 +1,35 @@
 .Header {
-    background: rgb(187, 186, 186);
-    margin-right: 0;
+    background: #ccc;
+    margin-right: -15px;
+    margin-left: -15px;
     height: 80px;
-}
-
-.logo {
-    background: #faf9f9;
-    padding-left: 0;
-    padding-right: 0;
-    text-align: center;
-}
-    
-img {
-    width: 130px;
-    margin: 10px auto;
-}
-
-.navbar {
-}
-  
+    .row {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .logo {
+      padding-left: 0;
+      padding-right: 0;
+      text-align: center;
+    }
+    img {
+      width: 130px;
+      margin: 10px auto;
+    }
+    .navbar {
+      text-align: right;
+      justify-content: flex-end;
+      span {
+        margin-right: 15px;
+        padding-right: 30px;
+        border-right: solid 1px #333;
+      }
+      .btn {
+        color: #333;
+        &:hover {
+          color: #f77000;
+          text-decoration: none;
+        }
+      }
+    }
+}  

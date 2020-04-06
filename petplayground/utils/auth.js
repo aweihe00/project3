@@ -15,14 +15,14 @@ function Auth() {
         console.log(err);
       });
   }
-  function getToken () {
+  function getToken() {
     return localStorage.getItem("token");
   }
   function logOut(cb) {
     localStorage.removeItem("token");
     cb();
   }
-  function isLoggedIn () {
+  function isLoggedIn() {
     return !!getToken();
   }
   return {
