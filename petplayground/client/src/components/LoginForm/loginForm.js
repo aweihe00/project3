@@ -3,38 +3,54 @@ import "./loginForm.scss";
 import { withRouter } from "react-router-dom";
 import UserContext from "../../context/UserContext";
 import Auth from "../../utils/Auth";
+
 class LoginForm extends Component {
   static contextType = UserContext;
   state = {
     username: "",
-    password: ""
-  };
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
+    password: "",
+    err: false
+};
+
+handleInputChange = event => {
+  const { name, value } = event.target;
+  this.setState({
       [name]: value
-    });
-  };
-  handleSubmitEvent = event => {
+  });
+};
+
+handleSubmitEvent = event => {
     event.preventDefault();
     console.log("Submited");
     const username = this.state.username;
     const password = this.state.password;
     if (username && password) {
-      Auth.logIn(username, password, response => {
-        this.context.setUser(response);
-        this.props.history.push("/");
-      });
+      try {
+        Auth.logIn(username, password, response => {
+          this.context.setUser(response);
+          this.props.history.push("/");
+        });
+      } catch (error) {
+        alert("asdasd");
+      }
     } else {
-      console.log("Something is incorrect.");
+      this.setState({
+        err: true
+      });
     }
   };
-  render() {
-    return (
-      <div className="LoginForm">
+
+render() {
+  return (
+    <div className="LoginForm">
+      {this.state.err ? (
+        <div class="alert alert-danger" role="alert">
+          Username and or password is incorrect
+        </div>
+      ) : null}
         <form>
           <div className="form-group">
-            <label htmlfor="exampleInputEmail1">Username</label>
+            <label htmlFor="exampleInputEmail1">Username</label>
             <input
               type="text"
               name="username"
@@ -43,10 +59,9 @@ class LoginForm extends Component {
               value={this.state.username}
               onChange={this.handleInputChange}
             />
-         
           </div>
           <div className="form-group">
-            <label htmlfor="exampleInputPassword1">Password</label>
+            <label htmlFor="exampleInputPassword1">Password</label>
             <input
               type="password"
               name="password"
@@ -68,4 +83,5 @@ class LoginForm extends Component {
     );
   }
 }
+
 export default withRouter(LoginForm);

@@ -1,10 +1,31 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const authWare = require("../customMiddleware/authware");
-const petsConroller = require("../controllers/petsConroller");
-const router = require("express").Router();
+var db = require("../models");
+const Pet = require("../models/Pets");
+
 module.exports = function(app) {
- 
+  app.get("/api/visits", function(req, res) {
+    Pet.find({})
+      .then(function(found) {
+        res.json(found);
+      })
+      .catch(function(err) {
+        res.status(500).json(err);
+      });
+  });
+
+  app.post("/api/visits", function(req, res) {
+    console.log(req.body);
+    Pet.create(req.body)
+      .then(function(saved) {
+        res.json({ message: "saved" });
+      })
+      .catch(function(err) {
+        res.status(500).json(err);
+      });
+  });
+
   app.post("/api/signup", function(req, res) {
     console.log(req.body);
     User.create(req.body)
@@ -19,9 +40,9 @@ module.exports = function(app) {
         });
       });
   });
-  
+
   app.post("/api/authenticate", function(req, res) {
-    console.log(req.body + "auth");
+    console.log(req.body);
     const { username, password } = req.body;
     User.findOne({
       username: username
@@ -37,6 +58,7 @@ module.exports = function(app) {
           },
           "secretKey"
         );
+
         res.json({
           id: dbUser._id,
           username: dbUser.username,
@@ -49,18 +71,15 @@ module.exports = function(app) {
       }
     });
   });
-  app.get("/api/me", authWare, function (req, res) {
+
+  app.get("/api/me", authWare, function(req, res) {
     res.json({ username: req.user.username });
-  })
-    app.get("/api/protected", authWare, function(req, res) {
+  });
+
+  app.get("/api/protected", authWare, function(req, res) {
     const user = req.user;
     res.json({
       message: user.username + ", should be protected"
     });
   });
-  app.post("/api/savePets", petsConroller.create);
 };
-
-
-
-
