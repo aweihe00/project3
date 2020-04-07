@@ -1,5 +1,6 @@
 import React from "react";
 import "./prescriptionFile.scss";
+
 function PrescriptionFile(props) {
   return (
     <div className="prescriptionFile">
