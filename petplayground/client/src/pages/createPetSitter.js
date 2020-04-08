@@ -3,7 +3,11 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import FileUpload from "../upload/fileUpload";
 import axios from "axios";
 import PetSitter from "./PetSitter";
+import UserContext from "../context/UserContext";
+
 class CreatePetSitter extends Component {
+    static contextType = UserContext;
+
   state = {
     file: "",
     name: "",
@@ -11,16 +15,25 @@ class CreatePetSitter extends Component {
     address: "",
     other: ""
   };
+
   setFile = filePath => {
     this.setState({
       file: filePath
     });
   };
+
   onChange = ({ target: { name, value } }) => {
     this.setState({
       [name]: value
     });
   };
+
+ reDirect (petSitter) {
+    axios.post(`/api/user/${this.context.user.id}/petSitters`, petSitter).then(function() {
+        this.props.history.push(`/user/${this.context.user.id}/petSitters`);
+      });
+  };
+
   onSubmit = e => {
     e.preventDefault();
     const petSitter = {
@@ -31,18 +44,11 @@ class CreatePetSitter extends Component {
       other: this.state.other
     };
     console.log(petSitter);
-    axios.post("/api/petSitters", petSitter).then(function() {
-      window.location.href = "/petSitter";
-    });
-    this.setState({
-      file: "",
-      name: "",
-      number: "",
-      address: "",
-      other: ""
-    });
+   this.reDirect(petSitter)
   };
+
   render() {
+    const { user } = this.context;
     return (
       <>
         <div style={{ marginTop: 10 }}>
@@ -51,7 +57,7 @@ class CreatePetSitter extends Component {
               <h2>New Pet Sitters</h2>
             </div>
             <div className="col-3 text-right">
-              <Link to="/petSitter" className="btn btn-success btn-lg">
+              <Link to={`/user/${user.id}/petSitters`} className="btn btn-success btn-lg">
                 Go back to your sitters
               </Link>
             </div>
