@@ -23,9 +23,10 @@ class PrescriptionsPage extends Component {
     this.loadPrescriptions();
   }
   loadPrescriptions = () => {
+    let currentComponent = this;
     axios.get("/api/...").then(function(res) {
-      this.setState({
-        prescriptions: "res.data.docs"
+      currentComponent.setState({
+        prescriptions: res.data
       });
     });
   };
