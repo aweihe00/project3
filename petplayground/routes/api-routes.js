@@ -1,9 +1,9 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const authWare = require("../customMiddleware/authware");
+const {petsController, userController} = require('../controllers');
 var db = require("../models");
 const Pet = require("../models/Pets");
-const PetSitter = require("../models/PetSitterMod");
 
 module.exports = function (app) {
   app.get("/api/visits", function (req, res) {
@@ -86,25 +86,8 @@ module.exports = function (app) {
     });
   });
 
-  app.post("/api/petSitters", function (req, res) {
-    console.log(req.body);
-    PetSitter.create(req.body)
-      .then(result => {
-        res.json({
-          message: "sitter created"
-        });
-      })
-      .catch(function (err) {
-        console.log(err)
-      });
-  })
+  app.post("/api/savePets", petsController.create);
 
-  app.get("/api/petSitters", function (res) {
-    PetSitter.find({})
-    .then(sitters => res.json(sitters)
-    )
-    .catch(function (err) {
-      console.log(err);
-    });
-  })
+  app.get("/api/getPets/:id", petsController.findById)
+
 };
