@@ -2,7 +2,9 @@ import React from "react";
 import "./petInfo.css";
 import API from "../utils/API2";
 import axios from "axios";
+
 class PetInfo extends React.Component {
+
   state = {
     petName: "",
     nicknames: "",
@@ -12,8 +14,10 @@ class PetInfo extends React.Component {
     temperament: "", 
     diet: "",
     directions: "",
-    id: "5d8be355cc699e177e44d2b2"
+    id: "5d8c2b38e773341971f43e8c"
+
 };
+
 componentDidMount () {
   axios.get("/api/getPets/" + this.state.id).then( data => {
     console.log(data)
@@ -21,11 +25,12 @@ componentDidMount () {
       petName: data.data.name,
       breed: data.data.breed,
       diet: data.data.diet,
-      birthday: data.data.birthday,
+      birthday: data.data.birthday.slice(0, -14),
       temperament: data.data.temperament,
       nicknames: data.data.nicknames })
   })
 }
+
   render() {
   return (
     <div className="petInfoCont">
@@ -47,4 +52,5 @@ componentDidMount () {
   );
 }
 }
+
 export default PetInfo;
