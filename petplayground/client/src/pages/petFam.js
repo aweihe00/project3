@@ -1,25 +1,23 @@
 import React from "react";
 import API from "../utils/API2";
-
 function randomComponent (props) {
     return <h1></h1>
 }
-
 class petFamily extends React.Component {
   state = {
       petName: "",
+      nicknames: "",
       breed: "",
       birthday: "",
       allergies: "", 
       temperament: "", 
       diet: "",
       directions: ""
-
   };
-
-  submitData = data => {
+  submitData = () => {
     const petData = {
         name: this.state.petName,
+        nicknames: this.state.nicknames,
         breed: this.state.breed, 
         birthday: this.state.birthday, 
         allergies: this.state.allergies, 
@@ -27,23 +25,19 @@ class petFamily extends React.Component {
         diet: this.state.diet, 
         directions: this.state.directions
     }
+    console.log(petData)
     API.savePet(petData).then( data => {
       console.log(data)
     }
-  
+        // return petID from mongo and apply to User model.
         
     )
-
-
     console.log(petData);
-
   }
-
   handleInputChange = event => {
       const { name, value } = event.target
       this.setState({ [name]: value })
   }
-
   render() {
     return (
       <div>
@@ -56,6 +50,14 @@ class petFamily extends React.Component {
             onChange={this.handleInputChange}
             value={this.state.petName}
           />
+          <label >Nicknames</label>
+          <input
+            name="nicknames"
+            type="text"
+            className="form-control"
+            onChange={this.handleInputChange}
+            value={this.state.nicknames}
+          />
           <label >Breed</label>
           <input
             name="breed"
@@ -66,8 +68,8 @@ class petFamily extends React.Component {
           />
           <label >Birthday</label>
           <input
-            name="birthday"
-            type="text"
+            name="bday"
+            type="date"
             className="form-control"
             onChange={this.handleInputChange}
             value={this.state.birthday}
@@ -112,5 +114,4 @@ class petFamily extends React.Component {
     );
   }
 }
-
 export default petFamily;

@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const prescriptionsSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -16,7 +15,6 @@ const prescriptionsSchema = new mongoose.Schema({
     trim: true
   }
 })
-
 const doctorVisitSchema = new mongoose.Schema({
   date: {
     type: Date
@@ -25,21 +23,24 @@ const doctorVisitSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
-  Address: {
+  hospital: {
     type: String
   },
   details: {
-    type: String
+    title: String,
+    url: String,
+    comments: String
   }
 })
-
 const petSchema = new mongoose.Schema({
   name: { 
     type: String, 
     required: true,
     trim: true },
-  petId: { type: String, 
-    required: true },
+  nicknames: {
+    type: String,
+    trim: true
+  },
   breed: { 
     type: String,
     trim: true },
@@ -52,7 +53,7 @@ const petSchema = new mongoose.Schema({
     type: String,
     trim: true
    },
-   diet: { 
+  diet: { 
     type: String,
   },
   directions: { type: String },
@@ -61,7 +62,5 @@ const petSchema = new mongoose.Schema({
     type: String
   }
 });
-
 const Pet = mongoose.model("Pets", petSchema);
-
 module.exports = Pet;

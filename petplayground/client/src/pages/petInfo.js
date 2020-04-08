@@ -2,21 +2,18 @@ import React from "react";
 import "./petInfo.css";
 import API from "../utils/API2";
 import axios from "axios";
-
 class PetInfo extends React.Component {
-
   state = {
     petName: "",
+    nicknames: "",
     breed: "",
     birthday: "",
     allergies: "", 
     temperament: "", 
     diet: "",
     directions: "",
-    id: "5d8bdcb47c2ad61619314d9a"
-
+    id: "5d8be355cc699e177e44d2b2"
 };
-
 componentDidMount () {
   axios.get("/api/getPets/" + this.state.id).then( data => {
     console.log(data)
@@ -25,11 +22,11 @@ componentDidMount () {
       breed: data.data.breed,
       diet: data.data.diet,
       birthday: data.data.birthday,
-      temperament: data.data.temperament })
+      temperament: data.data.temperament,
+      nicknames: data.data.nicknames })
   })
 }
-
-render() {
+  render() {
   return (
     <div className="petInfoCont">
       <div className="container">
@@ -39,6 +36,7 @@ render() {
         <div className="col text-right petInfoImage"></div>
         <div className="col text-start">
           <p>Name: {this.state.petName}</p>
+          <p>Nicknames: {this.state.nicknames}</p>
           <p>Breed: {this.state.breed}</p>
           <p>Birthday: {this.state.birthday}</p>
           <p>Temperament: {this.state.temperament}</p>
@@ -49,5 +47,4 @@ render() {
   );
 }
 }
-
 export default PetInfo;
