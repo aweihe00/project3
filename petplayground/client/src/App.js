@@ -12,6 +12,7 @@ import Visits from "./pages/Visits";
 import Home from "./pages/Home";
 import Auth from "./utils/Auth";
 import PetInfo from "./pages/PetInfo";
+import CreatePet from "./pages/CreatePet";
 import AddDetailPage from "./pages/AddDetailPage";
 import PetSitter from "./pages/PetSitter";
 import CreatePetSitter from "./pages/CreatePetSitter";
@@ -20,17 +21,16 @@ import DetailsPage from "./pages/DetailsPage";
 import PetFamily from "./pages/PetFamily";
 import ComingSoon from "./pages/ComingSoon";
 import "./global.scss";
-
 class App extends React.Component {
   state = {
     user: false
   };
-
-setUser = user => {
+  setUser = user => {
     this.setState({ user });
-};
-
-componentDidMount() {
+  };
+  componentDidMount() {
+    // if token exists
+    // go ask server for user associated with token
     if (Auth.isLoggedIn()) {
       axios
         .get("/api/me", {
@@ -43,8 +43,7 @@ componentDidMount() {
         });
     }
   }
-
-render() {
+  render() {
     const { user } = this.state;
     const setUser = this.setUser;
     return (
@@ -64,12 +63,42 @@ render() {
                   path="/createAccount"
                   component={CreateAccountPage}
                 />
-                <Route exact path="/petinfo" component={PetInfo} />
-
-                <Route exact path="/visits" component={Visits} />
-                <Route exact path="/petfamily" component={PetFamily} />
-                <Route exact path="/comingsoon" component={ComingSoon} />
-
+                <ProtectedRoutes
+                  exact
+                  path="/user/:id/visits"
+                  component={Visits}
+                />
+                <ProtectedRoutes
+                  exact
+                  path="/user/:id/pets/:petId/visits/addDetail"
+                  render={props => (
+                    <AddDetailPage
+                      {...props}
+                      pageTitle="Visits"
+                      postTo="/api/visits"
+                    />
+                  )}
+                />
+                <ProtectedRoutes
+                  exact
+                  path="/user/:id/visits/viewDetail"
+                  component={DetailsPage}
+                />
+                <ProtectedRoutes
+                  exact
+                  path="/user/:id/petfamily"
+                  component={PetFamily}
+                />
+                <ProtectedRoutes
+                  exact
+                  path="/user/:id/pets"
+                  component={PetInfo}
+                />
+                <ProtectedRoutes
+                  exact
+                  path="/user/:id/pets/createPet"
+                  component={CreatePet}
+                />
                 <ProtectedRoutes
                   exact
                   path="/addDetail"
@@ -83,8 +112,19 @@ render() {
                 />
                 <ProtectedRoutes
                   exact
-                  path="/visits/viewDetail"
-                  component={DetailsPage}
+                  path="/user/:id/prescription"
+                  component={PrescriptionPage}
+                />
+                <ProtectedRoutes
+                  exact
+                  path="/user/:id/pets/:petId/prescription/addDetail"
+                  render={props => (
+                    <AddDetailPage
+                      {...props}
+                      pageTitle="Presciption"
+                      postTo="/api/prescription"
+                    />
+                  )}
                 />
                 <ProtectedRoutes
                   exact
@@ -96,33 +136,6 @@ render() {
                   path="/user/:id/petSitters/createPetSitter"
                   component={CreatePetSitter}
                 />
-                <ProtectedRoutes
-                  exact
-                  path="/prescription"
-                  component={PrescriptionPage}
-                />
-                <ProtectedRoutes
-                  exact
-                  path="/prescription/addDetail"
-                  render={props => (
-                    <AddDetailPage
-                      {...props}
-                      pageTitle="Presciption"
-                      postTo="/api/prescription"
-                    />
-                  )}
-                />
-                <ProtectedRoutes
-                  exact
-                  path="/visits/addDetail"
-                  render={props => (
-                    <AddDetailPage
-                      {...props}
-                      pageTitle="Visits"
-                      postTo="/api/visits"
-                    />
-                  )}
-                />
               </div>
             </div>
           </div>
@@ -132,5 +145,4 @@ render() {
     );
   }
 }
-
 export default App;
