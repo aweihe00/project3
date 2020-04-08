@@ -1,19 +1,26 @@
 import React from "react";
 import API from "../utils/API2";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+
 function randomComponent (props) {
     return <h1></h1>
 }
+
 class petFamily extends React.Component {
   state = {
       petName: "",
       nicknames: "",
       breed: "",
-      birthday: "",
+      birthday: new Date(),
       allergies: "", 
       temperament: "", 
       diet: "",
       directions: ""
+
   };
+
   submitData = () => {
     const petData = {
         name: this.state.petName,
@@ -28,16 +35,26 @@ class petFamily extends React.Component {
     console.log(petData)
     API.savePet(petData).then( data => {
       console.log(data)
-    }
-        // return petID from mongo and apply to User model.
-        
+    }   
     )
+
+
     console.log(petData);
+
   }
+
   handleInputChange = event => {
       const { name, value } = event.target
       this.setState({ [name]: value })
   }
+
+  handleDateChange = date => {
+    this.setState({
+      birthday: date
+    })
+    console.log(this.state.birthday)
+  }
+
   render() {
     return (
       <div>
@@ -67,12 +84,11 @@ class petFamily extends React.Component {
             value={this.state.breed}
           />
           <label >Birthday</label>
-          <input
+          <DatePicker
             name="bday"
-            type="date"
             className="form-control"
-            onChange={this.handleInputChange}
-            value={this.state.birthday}
+            onSelect={this.handleDateChange}
+            selected={this.state.birthday}
           />
           <label >Allergies</label>
           <input
@@ -114,4 +130,5 @@ class petFamily extends React.Component {
     );
   }
 }
+
 export default petFamily;
