@@ -11,11 +11,10 @@ import Footer from "./components/Footer";
 import Visits from "./pages/Visits";
 import Home from "./pages/Home";
 import Auth from "./utils/Auth";
-import PetInfo from "./pages/PetInfo";
+import PetInfo from "./pages/petInfo";
+import petFamily from "./pages/petFam";
 import AddDetailPage from "./pages/AddDetailPage";
 import PrescriptionPage from "./pages/Prescriptions";
-import DetailsPage from "./pages/DetailsPage";
-
 import "./global.scss";
 
 class App extends React.Component {
@@ -23,38 +22,38 @@ class App extends React.Component {
     user: false
   };
 
-setUser = user => {
-  this.setState({ user });
-};
+  setUser = user => {
+    this.setState({ user });
+  };
 
-componentDidMount() {
-  if (Auth.isLoggedIn()) {
-    axios
-      .get("/api/me", {
-        headers: {
-          Authorization: "Bearer " + Auth.getToken()
-        }
-      })
-      .then(response => {
-        this.setUser(response.data);
-      });
+  componentDidMount() {
+    if (Auth.isLoggedIn()) {
+      axios
+        .get("/api/me", {
+          headers: {
+            Authorization: "Bearer " + Auth.getToken()
+          }
+        })
+        .then(response => {
+          this.setUser(response.data);
+        });
+    }
   }
-}
 
-render() {
-  const { user } = this.state;
-  const setUser = this.setUser;
-  return (
+  render() {
+    const { user } = this.state;
+    const setUser = this.setUser;
+    return (
       <Router>
         <UserContext.Provider value={{ setUser, user }}>
           <div className="container-fluid">
             <Header />
-            <div className="row">
+            <div className="row body-container">
               {this.state.user ? <Sidebar /> : null}
               <div
                 className={this.state.user ? "col-9 main-content" : "col-12"}
               >
-                <ProtectedRoutes exact path="/" component={Home} />
+                <Route exact path="/" component={Home} />
                 <Route exact path="/login" component={LoginPage} />
                 <Route
                   exact
@@ -62,7 +61,8 @@ render() {
                   component={CreateAccountPage}
                 />
                 <Route exact path="/petinfo" component={PetInfo} />
-                <Route exact path="/visits" component={Visits} />
+                <Route exact path="/petFamily" component={petFamily} />
+                <Route exact path="/Visits" component={Visits} />
                 <ProtectedRoutes
                   exact
                   path="/addDetail"
@@ -73,11 +73,6 @@ render() {
                       postTo="/api/test"
                     />
                   )}
-                />
-                <ProtectedRoutes
-                  exact
-                  path="/visits/viewDetail"
-                  component={DetailsPage}
                 />
                 <ProtectedRoutes
                   exact
@@ -92,17 +87,6 @@ render() {
                       {...props}
                       pageTitle="Presciption"
                       postTo="/api/prescription"
-                    />
-                  )}
-                />
-                <ProtectedRoutes
-                  exact
-                  path="/visits/addDetail"
-                  render={props => (
-                    <AddDetailPage
-                      {...props}
-                      pageTitle="Visits"
-                      postTo="/api/visits"
                     />
                   )}
                 />
