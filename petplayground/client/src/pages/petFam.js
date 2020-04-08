@@ -1,8 +1,10 @@
 import React from "react";
 import API from "../utils/API2";
+
 function randomComponent (props) {
     return <h1></h1>
 }
+
 class petFamily extends React.Component {
   state = {
       petName: "",
@@ -12,27 +14,36 @@ class petFamily extends React.Component {
       temperament: "", 
       diet: "",
       directions: ""
+
   };
+
   submitData = data => {
     const petData = {
         name: this.state.petName,
         breed: this.state.breed, 
         birthday: this.state.birthday, 
-        prescriptions: this.state.prescriptions,
         allergies: this.state.allergies, 
         temperament: this.state.temperament, 
         diet: this.state.diet, 
         directions: this.state.directions
     }
-    API.savePet(petData).then( 
+    API.savePet(petData).then( data => {
+      console.log(data)
+    }
   
+        
     )
+
+
     console.log(petData);
+
   }
+
   handleInputChange = event => {
       const { name, value } = event.target
       this.setState({ [name]: value })
   }
+
   render() {
     return (
       <div>
@@ -61,11 +72,7 @@ class petFamily extends React.Component {
             onChange={this.handleInputChange}
             value={this.state.birthday}
           />
-          <label >prescriptions</label>
-          
-
-          
-          <label >allergies</label>
+          <label >Allergies</label>
           <input
             name="allergies"
             type="text"
@@ -73,7 +80,7 @@ class petFamily extends React.Component {
             onChange={this.handleInputChange}
             value={this.state.allergies}
           />
-          <label >temperament</label>
+          <label >Temperament</label>
           <input
             name="temperament"
             type="text"
@@ -81,7 +88,7 @@ class petFamily extends React.Component {
             onChange={this.handleInputChange}
             value={this.state.temperament}
           />
-          <label >diet</label>
+          <label >Diet</label>
           <input
             name="diet"
             type="text"
@@ -89,7 +96,7 @@ class petFamily extends React.Component {
             onChange={this.handleInputChange}
             value={this.state.diet}
           />
-          <label >directions</label>
+          <label >Directions</label>
           <textarea
             name="directions"
             type="text"
@@ -105,4 +112,5 @@ class petFamily extends React.Component {
     );
   }
 }
+
 export default petFamily;
