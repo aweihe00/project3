@@ -8,7 +8,6 @@ class petFamily extends React.Component {
       petName: "",
       breed: "",
       birthday: "",
-      // prescriptions: [],
       allergies: "", 
       temperament: "", 
       diet: "",
@@ -26,7 +25,7 @@ class petFamily extends React.Component {
         directions: this.state.directions
     }
     API.savePet(petData).then( 
-        // return petID from mongo and apply to User model.
+  
     )
     console.log(petData);
   }
@@ -63,13 +62,9 @@ class petFamily extends React.Component {
             value={this.state.birthday}
           />
           <label >prescriptions</label>
-          {/* <input
-            name="prescriptions"
-            type="text"
-            className="form-control"
-            onChange={this.handleInputChange}
-            value={this.state.prescriptions}
-          /> */}
+          
+
+          
           <label >allergies</label>
           <input
             name="allergies"
