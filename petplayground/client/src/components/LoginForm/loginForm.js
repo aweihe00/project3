@@ -42,7 +42,7 @@ class LoginForm extends Component {
       <div className="LoginForm">
         {this.state.err ? (
           <div class="alert alert-danger" role="alert">
-            Username and or password is incorrect
+            Username and/or password is incorrect
           </div>
         ) : null}
         <form>

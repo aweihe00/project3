@@ -8,12 +8,12 @@ function Family() {
         <Link to="/petfamilyinfo">
           <div>
             <img
-              src="https://animalsafari.com/Georgia/wp-content/uploads/2016/03/wild-animal-safar-drive-thru-animal-park-tiger.jpg"
+              src=""
               className="card-img-top familyCard"
               alt="first pet"
             />
             <div className="card-body">
-              <p className="card-text">Ms. Fluffy</p>
+              <p className="card-text">Mr. Wiggles</p>
             </div>
           </div>
         </Link>
@@ -22,9 +22,9 @@ function Family() {
         <Link to="/createPet">
           <div>
             <img
-              src="https://www.missingdogsuk.co.uk/wp-content/plugins/wp-job-manager-resumes/assets/images/candidate.png"
+              src=""
               className="card-img-top familyCard"
-              alt="newe pet"
+              alt="new pet"
             />
             <div className="card-body">
               <p className="card-text"> + Add New Pet</p>
@@ -35,4 +35,5 @@ function Family() {
     </>
   );
 }
+
 export default Family;
