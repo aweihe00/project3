@@ -3,7 +3,7 @@ import axios from "axios";
 import LoginPage from "./pages/LoginPage";
 import CreateAccountPage from "./pages/CreateAccountPage";
 import UserContext from "./context/UserContext";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
 import Sidebar from "./components/Sidebar/sidebar";
 import Header from "./components/Header/header";
@@ -28,27 +28,28 @@ class App extends React.Component {
     user: false
   };
 
-setUser = user => {
-  this.setState({ user });
-};
+  setUser = user => {
+    this.setState({ user });
+  };
 
-componentDidMount() {
-  if (Auth.isLoggedIn()) {
-    axios
-      .get("/api/me", {
-        headers: {
-          Authorization: "Bearer " + Auth.getToken()
-        }
-      })
-      .then(response => {
-        this.setUser(response.data);
-      });
+  componentDidMount() {
+    if (Auth.isLoggedIn()) {
+      axios
+        .get("/api/me", {
+          headers: {
+            Authorization: "Bearer " + Auth.getToken()
+          }
+        })
+        .then(response => {
+          this.setUser(response.data);
+        });
+    }
   }
-}
 
-render() {
-  const { user } = this.state;
-  const setUser = this.setUser;
+  render() {
+    const { user } = this.state;
+    const setUser = this.setUser;
+    const userHome = `/user/${this.state.user.id}/petfamily`;
     return (
       <Router>
         <UserContext.Provider value={{ setUser, user }}>
@@ -59,12 +60,23 @@ render() {
               <div
                 className={this.state.user ? "col-9 main-content" : "col-12"}
               >
-                <Route exact path="/" component={Home} />
+                <Route
+                  exact
+                  path="/"
+                  render={() =>
+                    this.state.user ? <Redirect to={userHome} /> : <Home />
+                  }
+                />
                 <Route exact path="/login" component={LoginPage} />
                 <Route
                   exact
                   path="/createAccount"
                   component={CreateAccountPage}
+                />
+                <ProtectedRoutes
+                  exact
+                  path="/user/:id/visits"
+                  component={Visits}
                 />
                 <ProtectedRoutes
                   exact
