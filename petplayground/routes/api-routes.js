@@ -21,7 +21,7 @@ module.exports = function(app) {
         });
       });
   });
-  
+
   app.post("/api/authenticate", function(req, res) {
     console.log(req.body);
     const { username, password } = req.body;
@@ -39,6 +39,7 @@ module.exports = function(app) {
           },
           "secretKey"
         );
+
         res.json({
           id: dbUser._id,
           username: dbUser.username,
@@ -51,7 +52,7 @@ module.exports = function(app) {
       }
     });
   });
-  
+
   app.get("/api/user/:id/petFamily", function(req, res) {
     let id = req.params.id;
     User.findById(id)
@@ -61,14 +62,18 @@ module.exports = function(app) {
         console.log(err);
       });
   });
-  
+
+  app.get("/api/me", authWare, function(req, res) {
+    res.json({ username: req.user.username, id: req.user._id });
+  });
+
   app.get("/api/protected", authWare, function(req, res) {
     const user = req.user;
     res.json({
       message: user.username + ", should be protected"
     });
   });
-  // Pet Sitter routes
+
   app.post("/api/user/:id/petSitters", function(req, res) {
     console.log(req.body);
     let id = req.params.id;
@@ -89,6 +94,7 @@ module.exports = function(app) {
         console.log(err);
       });
   });
+
   app.get("/api/user/:id/petSitters", function(req, res) {
     let id = req.params.id;
     User.findById(id)
@@ -98,6 +104,7 @@ module.exports = function(app) {
         console.log(err);
       });
   });
+
   app.delete("/api/user/:id/petSitters", function (req, res){
     let id = req.params.id;
     PetSitter.remove(
@@ -116,7 +123,7 @@ module.exports = function(app) {
       }
     )
   })
-  
+
   app.post("/api/user/:id/createPet", function(req, res) {
     let id = req.params.id;
     console.log(req.body);
@@ -133,6 +140,16 @@ module.exports = function(app) {
       })
       .catch(function(err) {
         console.log(err);
+      });
+  });
+
+  app.get("/api/visits", function(req, res) {
+    Pet.find({})
+      .then(function(found) {
+        res.json(found);
+      })
+      .catch(function(err) {
+        res.status(500).json(err);
       });
   });
 
