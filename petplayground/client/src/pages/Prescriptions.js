@@ -83,7 +83,11 @@ class PrescriptionsPage extends Component {
               <button
                 onClick={e => this.activePet(e)}
                 id={item._id}
-                className="nav-link active"
+                className={
+                  item._id === this.state.activePet.id
+                    ? "nav-link active"
+                    : "nav-link"
+                }
               >
                 {item.name}
               </button>
@@ -91,7 +95,7 @@ class PrescriptionsPage extends Component {
           ))}
         </ul>
         <div className="row">
-          <div className="col-12 text-right mt-3">
+          <div className="col-12 text-right">
             <Link
               to={`/user/${userId}/prescription/addDetail/${this.state.activePet.id}`}
               className="btn btn-warning"
@@ -123,4 +127,3 @@ class PrescriptionsPage extends Component {
   }
 }
 export default PrescriptionsPage;
-Colla

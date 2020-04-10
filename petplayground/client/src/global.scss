@@ -1,5 +1,4 @@
-$gray: #b3b1b0;
-
+$orange: #f77000;
 .body-container {
   min-height: calc(100vh - 180px);
   .LoginPage {
@@ -15,10 +14,21 @@ $gray: #b3b1b0;
 }
 .main-content {
   padding: 50px 70px;
+  h2 {
+    color: #fa9000;
+    text-transform: uppercase;
+  }
 }
 img {
   max-width: 100%;
 }
 .nav.nav-tabs {
   margin-bottom: 20px;
+  margin-top: 20px;
+  .nav-link {
+    border-bottom: solid thin #dee2e6;
+  }
+  .nav-link.active {
+    border-bottom: solid thin #fff;
+  }
 }
