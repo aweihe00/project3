@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "./petInfoCard.scss";
-
 function PetInfoCard(props) {
+  // let bday = props.birthday.splice(0, -12)
   return (
     <div className="PetInfoCard card">
       <div className="row">
@@ -36,16 +36,15 @@ function PetInfoCard(props) {
           </p>
         </div>
         <div className="col-md-2 text-center buttons">
-            <Link to="" className="btn btn-primary">
-              Edit
+          <Link to="" className="btn btn-primary">
+            Edit
             </Link>
-            <Link to="" className="btn btn-primary">
-              Remove
+          <Link to="" onClick={props.deletePetCB.bind(this, props.id)} className="btn btn-primary">
+            Remove
             </Link>
-          </div>
+        </div>
       </div>
     </div>
   );
 }
-
 export default PetInfoCard;
