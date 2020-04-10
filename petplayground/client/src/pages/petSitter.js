@@ -28,15 +28,6 @@ class PetSitter extends Component {
         <div className="row">
           <div className="col-9">
             <h2>Pet Sitters </h2>
-          </div>
-          <div className="col-3 text-right">
-            <Link
-              to={`/user/${user.id}/petSitters/createPetSitter`}
-              className="btn btn-warning btn-lg"
-            >
-              Add a pet sitter!
-            </Link>
-          </div>
         </div>
         <div className="row">
           <div className="col-12">
@@ -47,12 +38,6 @@ class PetSitter extends Component {
             ) : null}
             {this.state.petSitters.map(item => (
               <SitterCard
-                key={item.id}
-                file={item.file}
-                name={item.name}
-                number={item.number}
-                address={item.address}
-                other={item.other}
               />
             ))}
           </div>
