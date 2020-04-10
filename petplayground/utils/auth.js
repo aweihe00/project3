@@ -1,4 +1,5 @@
 import axios from "axios";
+
 function Auth() {
   function logIn(username, password) {
     return axios
@@ -12,16 +13,20 @@ function Auth() {
         return response.data;
       });
   }
+
   function getToken() {
     return localStorage.getItem("token");
   }
+
   function logOut(cb) {
     localStorage.removeItem("token");
     return Promise.resolve();
   }
+
   function isLoggedIn() {
     return !!getToken();
   }
+
   return {
     logIn,
     logOut,
@@ -29,4 +34,5 @@ function Auth() {
     getToken
   };
 }
+
 export default Auth();

@@ -2,26 +2,17 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import PrescriptionFile from "../components/PrescriptionFile/prescriptionFile";
 import axios from "axios";
+
 class PrescriptionsPage extends Component {
   state = {
-    prescriptions: [
-      // {
-      //   id: "1",
-      //   title: "First Title",
-      //   url: "https://via.placeholder.com/150",
-      //   comment: "Lorem ipsum...."
-      // },
-      // {
-      //   id: "2",
-      //   title: "Second Title",
-      //   url: "https://via.placeholder.com/300x400",
-      //   comment: "Lorem ipsum...."
-      // }
-    ]
+    prescriptions: {}
+
   };
+
   componentDidMount() {
     this.loadPrescriptions();
   }
+
   loadPrescriptions = () => {
     let currentComponent = this;
     axios.get("/api/...").then(function(res) {
@@ -30,6 +21,7 @@ class PrescriptionsPage extends Component {
       });
     });
   };
+
   render() {
     return (
       <div className="Prescriptions">
@@ -67,4 +59,5 @@ class PrescriptionsPage extends Component {
     );
   }
 }
+
 export default PrescriptionsPage;

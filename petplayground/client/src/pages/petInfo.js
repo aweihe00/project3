@@ -2,6 +2,7 @@ import React from "react";
 import API from "../utils/API2";
 import axios from "axios";
 import PetInfoCard from "../components/petInfoCard/petInfoCard";
+
 class PetInfo extends React.Component {
   state = {
     petName: "",
@@ -14,6 +15,7 @@ class PetInfo extends React.Component {
     directions: "",
     id: " "
   };
+
   componentDidMount() {
     axios.get("/api/getPets/" + this.state.id).then(data => {
       console.log(data);
@@ -27,6 +29,7 @@ class PetInfo extends React.Component {
       });
     });
   }
+
   render() {
     return (
       <div className="petInfoCont">
@@ -46,8 +49,5 @@ class PetInfo extends React.Component {
     );
   }
 }
+
 export default PetInfo;
-
-
-
-

@@ -20,32 +20,35 @@ import PrescriptionPage from "./pages/Prescriptions";
 import DetailsPage from "./pages/DetailsPage";
 import PetFamily from "./pages/PetFamily";
 import ComingSoon from "./pages/ComingSoon";
+
 import "./global.scss";
+
 class App extends React.Component {
   state = {
     user: false
   };
-  setUser = user => {
-    this.setState({ user });
-  };
-  componentDidMount() {
-    // if token exists
-    // go ask server for user associated with token
-    if (Auth.isLoggedIn()) {
-      axios
-        .get("/api/me", {
-          headers: {
-            Authorization: "Bearer " + Auth.getToken()
-          }
-        })
-        .then(response => {
-          this.setUser(response.data);
-        });
-    }
+
+setUser = user => {
+  this.setState({ user });
+};
+
+componentDidMount() {
+  if (Auth.isLoggedIn()) {
+    axios
+      .get("/api/me", {
+        headers: {
+          Authorization: "Bearer " + Auth.getToken()
+        }
+      })
+      .then(response => {
+        this.setUser(response.data);
+      });
   }
-  render() {
-    const { user } = this.state;
-    const setUser = this.setUser;
+}
+
+render() {
+  const { user } = this.state;
+  const setUser = this.setUser;
     return (
       <Router>
         <UserContext.Provider value={{ setUser, user }}>
@@ -110,6 +113,7 @@ class App extends React.Component {
                     />
                   )}
                 />
+
                 <ProtectedRoutes
                   exact
                   path="/user/:id/prescription"
@@ -145,4 +149,5 @@ class App extends React.Component {
     );
   }
 }
+
 export default App;

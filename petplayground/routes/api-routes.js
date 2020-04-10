@@ -7,27 +7,6 @@ const Pet = require("../models/Pets");
 const PetSitter = require("../models/PetSitterMod");
 
 module.exports = function(app) {
-  app.get("/api/visits", function(req, res) {
-    Pet.find({})
-      .then(function(found) {
-        res.json(found);
-      })
-      .catch(function(err) {
-        res.status(500).json(err);
-      });
-  });
-
-  app.post("/api/visits", function(req, res) {
-    console.log(req.body);
-    Pet.create(req.body)
-      .then(function(saved) {
-        res.json({ message: "saved" });
-      })
-      .catch(function(err) {
-        res.status(500).json(err);
-      });
-  });
-
   app.post("/api/signup", function(req, res) {
     console.log(req.body);
     User.create(req.body)
@@ -77,7 +56,7 @@ module.exports = function(app) {
   app.get("/api/me", authWare, function(req, res) {
     res.json({ username: req.user.username, id: req.user._id });
   });
-
+  
   app.get("/api/protected", authWare, function(req, res) {
     const user = req.user;
     res.json({
@@ -132,6 +111,27 @@ module.exports = function(app) {
       })
       .catch(function(err) {
         console.log(err);
+      });
+  });
+
+  app.get("/api/visits", function(req, res) {
+    Pet.find({})
+      .then(function(found) {
+        res.json(found);
+      })
+      .catch(function(err) {
+        res.status(500).json(err);
+      });
+  });
+
+  app.post("/api/visits", function(req, res) {
+    console.log(req.body);
+    Pet.create(req.body)
+      .then(function(saved) {
+        res.json({ message: "saved" });
+      })
+      .catch(function(err) {
+        res.status(500).json(err);
       });
   });
 };
