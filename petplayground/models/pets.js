@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const prescriptionsSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -13,7 +12,6 @@ const prescriptionsSchema = new mongoose.Schema({
     trim: true
   }
 });
-
 const doctorVisitSchema = new mongoose.Schema({
   date: {
     type: Date
@@ -24,14 +22,8 @@ const doctorVisitSchema = new mongoose.Schema({
   },
   hospital: {
     type: String
-  },
-  details: {
-    title: String,
-    url: String,
-    comments: String
   }
 });
-
 const petSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -64,7 +56,5 @@ const petSchema = new mongoose.Schema({
     type: String
   }
 });
-
 const Pet = mongoose.model("Pet", petSchema);
-
 module.exports = Pet;

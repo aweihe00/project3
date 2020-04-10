@@ -37,8 +37,7 @@ function Sidebar() {
                 className="nav-link"
                 to={`/user/${context.user.id}/visits`}
               >
-                {" "}
-                Visits
+                Doctor Visits
               </NavLink>
             </li>
             <li className="nav-item">
