@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "./sitterCard.scss";
-
 function SitterCard(props) {
   return (
     <div className="sitterCard">
@@ -9,7 +8,7 @@ function SitterCard(props) {
         <div className="row ">
           {props.file ? (
             <div className="col-md-3 text-center">
-              <img src={props.file}></img>
+              <img src={props.file} style={{height: 250, width: 250}}></img>
             </div>
           ) : null}
           <div className={props.file ? "col-md-7" : "col-10"}>
@@ -24,14 +23,13 @@ function SitterCard(props) {
             <Link to="" className="btn btn-primary">
               Edit
             </Link>
-            <Link to="" className="btn btn-primary">
+            <button className="btn btn-danger" onClick={() => props.deleteSitter(props.id)}>
               Remove
-            </Link>
+            </button>
           </div>
         </div>
       </div>
     </div>
   );
 }
-
 export default SitterCard;

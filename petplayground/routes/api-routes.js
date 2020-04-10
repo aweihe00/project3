@@ -5,29 +5,12 @@ const { petsController, userController } = require("../controllers");
 var db = require("../models");
 const Pet = require("../models/Pets");
 const PetSitter = require("../models/PetSitterMod");
-
 module.exports = function(app) {
-  app.get("/api/visits", function(req, res) {
-    Pet.find({})
-      .then(function(found) {
-        res.json(found);
-      })
-      .catch(function(err) {
-        res.status(500).json(err);
-      });
-  });
-
-  app.post("/api/visits", function(req, res) {
-    console.log(req.body);
-    Pet.create(req.body)
-      .then(function(saved) {
-        res.json({ message: "saved" });
-      })
-      .catch(function(err) {
-        res.status(500).json(err);
-      });
-  });
-
+  // post requests to /api/signup;
+  // created a user based off of the User model
+  // in out mongoDB and returns
+  // json message saying user created.
+  // if error, send error.
   app.post("/api/signup", function(req, res) {
     console.log(req.body);
     User.create(req.body)
@@ -42,7 +25,7 @@ module.exports = function(app) {
         });
       });
   });
-
+  // post requests to see if the user is authenticated.
   app.post("/api/authenticate", function(req, res) {
     console.log(req.body);
     const { username, password } = req.body;
@@ -60,7 +43,6 @@ module.exports = function(app) {
           },
           "secretKey"
         );
-
         res.json({
           id: dbUser._id,
           username: dbUser.username,
@@ -73,18 +55,27 @@ module.exports = function(app) {
       }
     });
   });
-
+  app.get("/api/user/:id/petFamily", function(req, res) {
+    let id = req.params.id;
+    User.findById(id)
+      .populate("pets")
+      .then(response => res.json(response))
+      .catch(function(err) {
+        console.log(err);
+      });
+  });
   app.get("/api/me", authWare, function(req, res) {
     res.json({ username: req.user.username, id: req.user._id });
   });
-
+  // testing protected routes. uses custom authWare middle ware to
+  // check if the user is authenticated.
   app.get("/api/protected", authWare, function(req, res) {
     const user = req.user;
     res.json({
       message: user.username + ", should be protected"
     });
   });
-
+  // Pet Sitter routes
   app.post("/api/user/:id/petSitters", function(req, res) {
     console.log(req.body);
     let id = req.params.id;
@@ -105,7 +96,6 @@ module.exports = function(app) {
         console.log(err);
       });
   });
-
   app.get("/api/user/:id/petSitters", function(req, res) {
     let id = req.params.id;
     User.findById(id)
@@ -115,7 +105,25 @@ module.exports = function(app) {
         console.log(err);
       });
   });
-
+  app.delete("/api/user/:id/petSitters", function (req, res){
+    let id = req.params.id;
+    PetSitter.remove(
+      {
+        _id: mongojs.ObjectID(id)
+      },
+      function(err, removed) {
+        if (error) {
+          console.log(error);
+          res.send(error);
+        }
+        else {
+          console.log(removed);
+          res.send(removed);
+        }
+      }
+    )
+  })
+  // Pet Routes
   app.post("/api/user/:id/createPet", function(req, res) {
     let id = req.params.id;
     console.log(req.body);
@@ -132,6 +140,25 @@ module.exports = function(app) {
       })
       .catch(function(err) {
         console.log(err);
+      });
+  });
+  app.get("/api/visits", function(req, res) {
+    Pet.find({})
+      .then(function(found) {
+        res.json(found);
+      })
+      .catch(function(err) {
+        res.status(500).json(err);
+      });
+  });
+  app.post("/api/visits", function(req, res) {
+    console.log(req.body);
+    Pet.create(req.body)
+      .then(function(saved) {
+        res.json({ message: "saved" });
+      })
+      .catch(function(err) {
+        res.status(500).json(err);
       });
   });
 };
