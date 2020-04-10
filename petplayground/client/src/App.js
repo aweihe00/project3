@@ -73,11 +73,7 @@ class App extends React.Component {
                   path="/user/:id/visits"
                   component={Visits}
                 />
-                <ProtectedRoutes
-                  exact
-                  path="/user/:id/visits"
-                  component={Visits}
-                />
+
                 <ProtectedRoutes
                   exact
                   path="/user/:id/pets/:petId/visits/addDetail"
