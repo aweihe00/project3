@@ -5,7 +5,9 @@ function AddDetailPage(props) {
   return (
     <>
       <h2>New {props.pageTitle}</h2>
-      <AddDetail postTo={props.postTo} />
+      <AddDetail
+        postTo={`/api/pets/${props.match.params.petId}/${props.pageTitle}`}
+      />
     </>
   );
 }

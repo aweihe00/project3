@@ -1,21 +1,18 @@
 const mongoose = require("mongoose");
 
 const prescriptionsSchema = new mongoose.Schema({
-  name: {
+  title: {
     type: String,
     trim: true
   },
-  image: {
-    data: Buffer, contentType: String
+  file: {
+    type: String
   },
-  expDate: {
-    type: Date
-  },
-  directions: {
+  comment: {
     type: String,
     trim: true
   }
-})
+});
 
 const doctorVisitSchema = new mongoose.Schema({
   date: {
@@ -29,31 +26,37 @@ const doctorVisitSchema = new mongoose.Schema({
     type: String
   },
   details: {
-    type: String
+    title: String,
+    url: String,
+    comments: String
   }
-})
+});
 
 const petSchema = new mongoose.Schema({
-  name: { 
-    type: String, 
-    required: true,
-    trim: true },
-  petId: { type: String, 
-    required: true },
-  breed: { 
+  name: {
     type: String,
-    trim: true },
-  birthday: { 
-    type: Date
-    },
-  prescriptions: [prescriptionsSchema],
-  allergies: { type: Array },
-  temperament: { 
+    required: true,
+    trim: true
+  },
+  nicknames: {
     type: String,
     trim: true
-   },
-   diet: { 
+  },
+  breed: {
     type: String,
+    trim: true
+  },
+  birthday: {
+    type: Date
+  },
+  prescriptions: [prescriptionsSchema],
+  allergies: { type: Array },
+  temperament: {
+    type: String,
+    trim: true
+  },
+  diet: {
+    type: String
   },
   directions: { type: String },
   docVisits: [doctorVisitSchema],
