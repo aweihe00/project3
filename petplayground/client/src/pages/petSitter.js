@@ -3,50 +3,41 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import axios from "axios";
 import SitterCard from "../components/SitterCard/sitterCard";
 import UserContext from "../context/UserContext";
-
 class PetSitter extends Component {
   static contextType = UserContext;
-
   state = {
     petSitters: [],
     mounted: false,
     refreshed: false
   };
-
   componentDidUpdate(){
-    if(this.state.mounted == false){
-      if(this.state.refreshed == false){
+    if(this.state.mounted === false){
+      if(this.state.refreshed === false){
         console.log("updateRan")
-        let currentComponent = this;
-        axios.get(`/api/user/${this.context.user.id}/petSitters`).then(function(res) {
+        axios.get(`/api/user/${this.context.user.id}/petSitters`).then(res => {
           console.log(res.data);
-          currentComponent.setState({
+          this.setState({
             petSitters: res.data.petSitters,
             refreshed: true
           });
         });
-
       } else {
         this.setState ({
           mounted: true
         })
       }
     }
-
-
   }
-
   componentDidMount() {
-    let currentComponent = this;
-    axios.get(`/api/user/${this.context.user.id}/petSitters`).then(function (res) {
+    if (!this.context.user) return;
+    axios.get(`/api/user/${this.context.user.id}/petSitters`).then(res => {
       console.log(res.data);
-      currentComponent.setState({
+      this.setState({
         petSitters: res.data.petSitters,
         mounted: true
       });
     });
   }
-
   deleteButton = (petSitterId) => {
     axios.delete(`/api/user/${petSitterId}/petSitters`).then(function (res) {
       console.log("sitter deleted")
@@ -59,7 +50,6 @@ class PetSitter extends Component {
         });
       });
  };
-
   render() {
     const { user } = this.context;
     return (
@@ -81,7 +71,7 @@ class PetSitter extends Component {
           <div className="col-12">
             {this.state.petSitters < 1 ? (
               <div className="alert alert-warning mt-4" role="alert">
-                You don't have a pet sitter in your record.
+                You don't have pet sitters in your records
               </div>
             ) : null}
             {this.state.petSitters.map(item => (

@@ -4,10 +4,8 @@ import FileUpload from "../upload/fileUpload";
 import axios from "axios";
 import PetSitter from "./PetSitter";
 import UserContext from "../context/UserContext";
-
 class CreatePetSitter extends Component {
     static contextType = UserContext;
-
   state = {
     file: "",
     name: "",
@@ -15,25 +13,23 @@ class CreatePetSitter extends Component {
     address: "",
     other: ""
   };
-
   setFile = filePath => {
     this.setState({
       file: filePath
     });
   };
-
   onChange = ({ target: { name, value } }) => {
     this.setState({
       [name]: value
     });
   };
-
  reDirect (petSitter) {
+   let petSitterUrl = `/user/${this.context.user.id}/petSitters`
     axios.post(`/api/user/${this.context.user.id}/petSitters`, petSitter).then(function() {
-        this.props.history.push(`/user/${this.context.user.id}/petSitters`);
+        window.location=petSitterUrl;
       });
   };
-
+  
   onSubmit = e => {
     e.preventDefault();
     const petSitter = {
@@ -46,7 +42,6 @@ class CreatePetSitter extends Component {
     console.log(petSitter);
    this.reDirect(petSitter)
   };
-
   render() {
     const { user } = this.context;
     return (
