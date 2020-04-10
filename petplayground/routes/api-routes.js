@@ -1,24 +1,30 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const cloudinary = require("cloudinary");
 const authWare = require("../customMiddleware/authware");
 const { petsController, userController } = require("../controllers");
 var db = require("../models");
 const Pet = require("../models/Pets");
 const PetSitter = require("../models/PetSitterMod");
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
+})
+
 module.exports = function(app) {
   app.post("/api/image-upload", (req, res) => {
+
     const values = Object.values(req.files)
     const promises = values.map(image => cloudinary.uploader.upload(image.path))
+
     Promise
       .all(promises)
       .then(results => res.json(results))
       .catch((err) => res.status(400).json(err))
   });
-  // post requests to /api/signup;
-  // created a user based off of the User model
-  // in out mongoDB and returns
-  // json message saying user created.
-  // if error, send error.
+
   app.post("/api/signup", function(req, res) {
     console.log(req.body);
     User.create(req.body)
@@ -33,7 +39,7 @@ module.exports = function(app) {
         });
       });
   });
-  // post requests to see if the user is authenticated.
+
   app.post("/api/authenticate", function(req, res) {
     console.log(req.body);
     const { username, password } = req.body;
@@ -51,6 +57,7 @@ module.exports = function(app) {
           },
           "secretKey"
         );
+
         res.json({
           id: dbUser._id,
           username: dbUser.username,
@@ -63,6 +70,7 @@ module.exports = function(app) {
       }
     });
   });
+
   app.get("/api/user/:id/petFamily", function(req, res) {
     let id = req.params.id;
     User.findById(id)
@@ -72,18 +80,18 @@ module.exports = function(app) {
         console.log(err);
       });
   });
+
   app.get("/api/me", authWare, function(req, res) {
     res.json({ username: req.user.username, id: req.user._id });
   });
-  // testing protected routes. uses custom authWare middle ware to
-  // check if the user is authenticated.
+ 
   app.get("/api/protected", authWare, function(req, res) {
     const user = req.user;
     res.json({
       message: user.username + ", should be protected"
     });
   });
-  // Pet Sitter routes
+
   app.post("/api/user/:id/petSitters", function(req, res) {
     console.log(req.body);
     let id = req.params.id;
@@ -104,6 +112,7 @@ module.exports = function(app) {
         console.log(err);
       });
   });
+
   app.get("/api/user/:id/petSitters", function(req, res) {
     let id = req.params.id;
     User.findById(id)
@@ -113,7 +122,7 @@ module.exports = function(app) {
         console.log(err);
       });
   });
-  // pet Routes
+
   app.post("/api/user/:id/createPet", function(req, res) {
     let id = req.params.id;
     console.log(req.body);
@@ -132,6 +141,7 @@ module.exports = function(app) {
         console.log(err);
       });
   });
+
   app.get("/api/visits", function(req, res) {
     Pet.find({})
       .then(function(found) {
@@ -141,6 +151,7 @@ module.exports = function(app) {
         res.status(500).json(err);
       });
   });
+
   app.post("/api/visits", function(req, res) {
     console.log(req.body);
     Pet.create(req.body)
