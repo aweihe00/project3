@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import PrescriptionFile from "../components/PrescriptionFile/prescriptionFile";
 import axios from "axios";
 import UserContext from "../context/UserContext";
-
 class PrescriptionsPage extends Component {
   static contextType = UserContext;
   state = {
@@ -13,7 +12,6 @@ class PrescriptionsPage extends Component {
     activePet: {},
     activePetPrescription: []
   };
-
   componentDidMount() {
     let currentComponent = this;
     axios.get(`/api/user/${this.context.user.id}/petFamily`).then(response => {
@@ -29,7 +27,6 @@ class PrescriptionsPage extends Component {
       });
     });
   }
-  
   componentDidUpdate() {
     if (this.state.mounted == false) {
       if (this.state.refreshed == false) {
@@ -56,7 +53,6 @@ class PrescriptionsPage extends Component {
       }
     }
   }
-
   activePet = e => {
     let id = e.target.id;
     console.log(id);
@@ -70,13 +66,10 @@ class PrescriptionsPage extends Component {
       }
     });
   };
-
   render() {
     // const prescriptions = this.state.activePet.prescriptions;
     // console.log(prescriptions);
-
     const { id: userId } = this.context.user || {};
-
     return (
       <div className="Prescriptions">
         <div className="row">
@@ -101,7 +94,7 @@ class PrescriptionsPage extends Component {
           <div className="col-12 text-right mt-3">
             <Link
               to={`/user/${userId}/prescription/addDetail/${this.state.activePet.id}`}
-              className="btn btn-primary"
+              className="btn btn-warning"
             >
               Add new prescription for {this.state.activePet.name}!
             </Link>
@@ -110,7 +103,7 @@ class PrescriptionsPage extends Component {
             {this.state.activePetPrescription.length < 1 ? (
               <>
                 <div className="alert alert-warning mt-4" role="alert">
-                  This pet doesn't have any prescriptions.
+                  This pet doesn't have prescriptions
                 </div>
               </>
             ) : (
@@ -129,5 +122,5 @@ class PrescriptionsPage extends Component {
     );
   }
 }
-
 export default PrescriptionsPage;
+Colla
