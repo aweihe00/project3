@@ -1,29 +1,23 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import Images from "./Images";
-import { API_URL } from "../utils/API";
 import Loading from "./Loading";
 import Button from "./Button";
 import "./fileUpload.scss";
-
 class FileUpload extends Component {
   state = {
     uploading: false,
     images: [],
     imageURL: ""
   };
-
   onChange = e => {
     const files = Array.from(e.target.files);
     this.setState({ uploading: true });
-
     const formData = new FormData();
-
     files.forEach((file, i) => {
       formData.append(i, file);
     });
-
-    fetch(`${API_URL}/image-upload`, {
+    fetch("/api/image-upload", {
       method: "POST",
       body: formData
     })
@@ -37,7 +31,6 @@ class FileUpload extends Component {
         this.props.onComplete(images[0].url);
       });
   };
-
   removeImage = id => {
     this.setState({
       images: this.state.images.filter(image => image.public_id !== id)
@@ -45,7 +38,6 @@ class FileUpload extends Component {
   };
   render() {
     const { uploading, images } = this.state;
-
     const content = () => {
       switch (true) {
         case uploading:
@@ -62,7 +54,6 @@ class FileUpload extends Component {
           return <Button onChange={this.onChange} onClick={this.removeImage} />;
       }
     };
-
     return (
       <div>
         <div className="button">{content()}</div>
@@ -70,9 +61,7 @@ class FileUpload extends Component {
     );
   }
 }
-
 FileUpload.defaultProps = {
   onComplete: function() {}
 };
-
 export default FileUpload;

@@ -6,6 +6,14 @@ var db = require("../models");
 const Pet = require("../models/Pets");
 const PetSitter = require("../models/PetSitterMod");
 module.exports = function(app) {
+  app.post("/api/image-upload", (req, res) => {
+    const values = Object.values(req.files)
+    const promises = values.map(image => cloudinary.uploader.upload(image.path))
+    Promise
+      .all(promises)
+      .then(results => res.json(results))
+      .catch((err) => res.status(400).json(err))
+  });
   // post requests to /api/signup;
   // created a user based off of the User model
   // in out mongoDB and returns
@@ -105,25 +113,7 @@ module.exports = function(app) {
         console.log(err);
       });
   });
-  app.delete("/api/user/:id/petSitters", function (req, res){
-    let id = req.params.id;
-    PetSitter.deleteOne(
-      {
-        _id: id
-      },
-      function(err, removed) {
-        if (err) {
-          console.log(err);
-          res.send(err);
-        }
-        else {
-          console.log(removed);
-          res.send(removed);
-        }
-      }
-    )
-  })
-  // Pet Routes
+  // pet Routes
   app.post("/api/user/:id/createPet", function(req, res) {
     let id = req.params.id;
     console.log(req.body);
