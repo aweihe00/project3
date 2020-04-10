@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "./sitterCard.scss";
+
 function SitterCard(props) {
   return (
     <div className="sitterCard">
@@ -32,4 +33,5 @@ function SitterCard(props) {
     </div>
   );
 }
+
 export default SitterCard;

@@ -1,9 +1,13 @@
 import React from "react";
 import "./prescriptionFile.scss";
+import { Link } from "react-router-dom";
 
 function PrescriptionFile(props) {
   return (
     <div className="prescriptionFile">
+      <Link to="/prescription/addDetail" className="btn btn-primary btn-lg">
+        Add New Prescription
+      </Link>
       <div className="card">
         <div className="row ">
           <div className="col-md-4">
@@ -20,4 +24,5 @@ function PrescriptionFile(props) {
     </div>
   );
 }
+
 export default PrescriptionFile;
