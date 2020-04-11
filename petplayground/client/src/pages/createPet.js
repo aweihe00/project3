@@ -26,6 +26,7 @@ class CreatePet extends React.Component {
     this.setState({
       image: filePath
     });
+    console.log(this.state)
   };
   submitData = event => {
     event.preventDefault();
@@ -38,7 +39,7 @@ class CreatePet extends React.Component {
       temperament: this.state.temperament,
       diet: this.state.diet,
       directions: this.state.directions,
-      image: this.state.file
+      image: this.state.image
     };
     console.log(petData);
     let petFamUrl = `/user/${this.context.user.id}/petFamily`;
@@ -48,9 +49,6 @@ class CreatePet extends React.Component {
         window.location = petFamUrl;
         // window.location.href = `/user/${this.context.user.id}/petfamily`;
       });
-    // API.savePet(petData).then( data => {
-    //   console.log(data)
-    // }
   };
   handleInputChange = event => {
     const { name, value } = event.target;
