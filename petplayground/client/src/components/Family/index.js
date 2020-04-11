@@ -1,39 +1,30 @@
 import React from "react";
 import "./style.scss";
 import { Link } from "react-router-dom";
-function Family() {
+import UserContext from "../../context/UserContext"
+function Pet(props) {
   return (
-    <>
+    <UserContext.Consumer>
+      
+      { ({user}) => ( 
       <button className="familyCard">
-        <Link to="/petfamilyinfo">
+        <Link to={`/user/${user.id}/pets`}>
           <div>
             <img
-              src=""
+              src={props.img ? props.img : "https://via.placeholder.com/150"}
               className="card-img-top familyCard"
               alt="first pet"
             />
             <div className="card-body">
-              <p className="card-text">Mr. Wiggles</p>
+              <p className="card-text">{props.name}</p>
             </div>
           </div>
         </Link>
       </button>
-      <button className="familyCard">
-        <Link to="/createPet">
-          <div>
-            <img
-              src=""
-              className="card-img-top familyCard"
-              alt="new pet"
-            />
-            <div className="card-body">
-              <p className="card-text"> + Add New Pet</p>
-            </div>
-          </div>
-        </Link>
-      </button>
-    </>
+      
+      )
+    }
+  </UserContext.Consumer>
   );
 }
-
-export default Family;
+export default Pet;
