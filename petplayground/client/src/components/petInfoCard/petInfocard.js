@@ -5,16 +5,15 @@ import "./petInfoCard.scss";
 function PetInfoCard(props) {
   const placeholderImg =
     "https://www.missingdogsuk.co.uk/wp-content/plugins/wp-job-manager-resumes/assets/images/candidate.png";
-  
-    return (
+  return (
     <div className="PetInfoCard card">
       <div className="row">
-        <div className="col-3 text-center">
+        <div className="col-12 col-sm-12 col-md-6 col-lg-3 text-center">
           <div className="petImg">
             <img src={props.img || placeholderImg}></img>
           </div>
         </div>
-        <div className="col-7 text-start">
+        <div className="col-lg-7 text-start">
           {props.name ? (
             <p>
               <strong>Name: </strong>
