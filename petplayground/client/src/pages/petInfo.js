@@ -1,13 +1,16 @@
 import React from "react";
-import API from "../utils/API2";
+// import API from "../utils/API2";
 import axios from "axios";
 import PetInfoCard from "../components/petInfoCard/petInfoCard";
 import UserContext from "../context/UserContext"
+
 class PetInfo extends React.Component {
 static contextType = UserContext;
+
   state = {
     pets: []
   };
+
   componentDidMount() {
     let currentComponent = this;
     axios.get(`/api/user/${this.context.user.id}/petFamily`).then(data => {
@@ -17,12 +20,20 @@ static contextType = UserContext;
       });
     });
   }
-  deletePet = id => {
-    console.log("hello: " + id);
-    // axios.delete(`/api/user/${this.context.user.id}/pet/`).then((response) => {
-    //   console.log(response);
-    // });
-  };
+
+  deletePet = (petId) => {
+    axios.delete(`/api/user/${petId}/petFamily`).then(function (res) {
+      console.log("pet deleted")
+      });
+      let currentComponent = this;
+      axios.get(`/api/user/${this.context.user.id}/petFamily`).then(function (res) {
+        console.log(res.data);
+        currentComponent.setState({
+          pets: res.data.pets
+        });
+      });
+ };
+
   render() { 
     return (
       <div className="petInfoCont">
@@ -49,4 +60,5 @@ static contextType = UserContext;
     );
   }
 }
+
 export default PetInfo;
