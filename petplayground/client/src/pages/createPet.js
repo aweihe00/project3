@@ -5,29 +5,34 @@ import "react-datepicker/dist/react-datepicker.css";
 import FileUpload from "../upload/fileUpload";
 import UserContext from "../context/UserContext";
 import axios from "axios";
+
 function randomComponent(props) {
   return <h1></h1>;
 }
+
 class CreatePet extends React.Component {
   static contextType = UserContext;
+
   state = {
     petName: "",
     nicknames: "",
+    image: "",
     breed: "",
     birthday: new Date(),
     allergies: "",
     temperament: "",
     diet: "",
-    directions: "",
-    image: ""
+    directions: ""
   };
+
   setFile = filePath => {
-    console.log(filePath)
+    console.log(filePath);
     this.setState({
       image: filePath
     });
-    console.log(this.state)
+    console.log(this.state);
   };
+
   submitData = event => {
     event.preventDefault();
     const petData = {
@@ -47,22 +52,25 @@ class CreatePet extends React.Component {
       .post(`/api/user/${this.context.user.id}/createPet`, petData)
       .then(function() {
         window.location = petFamUrl;
-        // window.location.href = `/user/${this.context.user.id}/petfamily`;
       });
   };
+
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
+
   handleDateChange = date => {
     this.setState({
       birthday: date
     });
     console.log(this.state.birthday);
   };
+
   render() {
     return (
       <div>
+        <h2 className="mb-4">New Pet</h2>
         <form>
           <div className="form-group">
             <label>Pet Name</label>
@@ -85,6 +93,7 @@ class CreatePet extends React.Component {
             />
           </div>
           <div className="form-group">
+            <label>Picture</label>
             <FileUpload onComplete={this.setFile} />
           </div>
           <div className="form-group">
@@ -146,7 +155,11 @@ class CreatePet extends React.Component {
               value={this.state.directions}
             />
           </div>
-          <button onClick={this.submitData} type="submit">
+          <button
+            onClick={this.submitData}
+            type="submit"
+            className="btn btn-warning"
+          >
             Submit Pet
           </button>
         </form>
@@ -154,4 +167,5 @@ class CreatePet extends React.Component {
     );
   }
 }
+
 export default CreatePet;
