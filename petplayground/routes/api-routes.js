@@ -6,17 +6,20 @@ const { petsController, userController } = require("../controllers");
 var db = require("../models");
 const Pet = require("../models/Pets");
 const PetSitter = require("../models/PetSitterMod");
+
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,
   api_secret: process.env.API_SECRET
 });
+
 module.exports = function(app) {
   app.post("/api/image-upload", (req, res) => {
     const values = Object.values(req.files);
     const promises = values.map(image =>
       cloudinary.uploader.upload(image.path)
     );
+
     Promise.all(promises)
       .then(results => res.json(results))
       .catch(err => res.status(400).json(err));
@@ -36,7 +39,7 @@ module.exports = function(app) {
         });
       });
   });
- 
+
   app.post("/api/authenticate", function(req, res) {
     console.log(req.body);
     const { username, password } = req.body;
@@ -54,6 +57,7 @@ module.exports = function(app) {
           },
           "secretKey"
         );
+
         res.json({
           id: dbUser._id,
           username: dbUser.username,
@@ -66,6 +70,7 @@ module.exports = function(app) {
       }
     });
   });
+
   app.get("/api/user/:id/petFamily", function(req, res) {
     let id = req.params.id;
     User.findById(id)
@@ -75,10 +80,11 @@ module.exports = function(app) {
         console.log(err);
       });
   });
+
   app.get("/api/me", authWare, function(req, res) {
     res.json({ username: req.user.username, id: req.user._id });
   });
- 
+  
   app.get("/api/protected", authWare, function(req, res) {
     const user = req.user;
     res.json({
@@ -106,6 +112,7 @@ module.exports = function(app) {
         console.log(err);
       });
   });
+
   app.get("/api/user/:id/petSitters", function(req, res) {
     let id = req.params.id;
     User.findById(id)
@@ -115,6 +122,7 @@ module.exports = function(app) {
         console.log(err);
       });
   });
+
   app.delete("/api/user/:id/petSitters", function(req, res) {
     let id = req.params.id;
     PetSitter.deleteOne(
@@ -132,7 +140,7 @@ module.exports = function(app) {
       }
     );
   });
-  // Pet Routes
+
   app.post("/api/user/:id/createPet", function(req, res) {
     let id = req.params.id;
     console.log(req.body);
@@ -151,6 +159,36 @@ module.exports = function(app) {
         console.log(err);
       });
   });
+
+  app.delete("/api/user/:id/petFamily", function(req, res) {
+    let id = req.params.id;
+    console.log("pet delete: " + id)
+    Pet.deleteOne(
+      {
+        _id: id
+      },
+      function(err, removed) {
+        if (err) {
+          console.log(err);
+          res.send(err);
+        } else {
+          console.log("else: " + removed);
+          res.send(removed);
+        }
+      }
+    );
+  });
+
+  app.get("/api/user/:id/petFamily", function(req, res) {
+    let id = req.params.id;
+    User.findById(id)
+      .populate("pets")
+      .then(response => res.json(response))
+      .catch(function(err) {
+        console.log(err);
+      });
+  });
+
   app.get("/api/user/:id/visits", function(req, res) {
     Pet.find({})
       .then(function(found) {
@@ -160,6 +198,7 @@ module.exports = function(app) {
         res.status(500).json(err);
       });
   });
+
   app.post("/api/pets/:id/prescription", function(req, res) {
     const id = req.params.id;
     Pet.findByIdAndUpdate(
@@ -174,7 +213,7 @@ module.exports = function(app) {
         console.log(err);
       });
   });
-  // Visits routes
+
   app.post("/api/pets/:id/visits", function(req, res) {
     const id = req.params.id;
     Pet.findByIdAndUpdate(id, { $push: { docVisits: req.body } }, { new: true })
@@ -186,7 +225,3 @@ module.exports = function(app) {
       });
   });
 };
-
-
-
-
