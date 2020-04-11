@@ -5,14 +5,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import FileUpload from "../upload/fileUpload";
 import UserContext from "../context/UserContext";
 import axios from "axios";
-
 function randomComponent(props) {
   return <h1></h1>;
 }
-
 class CreatePet extends React.Component {
   static contextType = UserContext;
-
   state = {
     petName: "",
     nicknames: "",
@@ -24,13 +21,12 @@ class CreatePet extends React.Component {
     directions: "",
     image: ""
   };
-
   setFile = filePath => {
+    console.log(filePath)
     this.setState({
       image: filePath
     });
   };
-
   submitData = event => {
     event.preventDefault();
     const petData = {
@@ -42,27 +38,30 @@ class CreatePet extends React.Component {
       temperament: this.state.temperament,
       diet: this.state.diet,
       directions: this.state.directions,
-      image: this.state.image
+      image: this.state.file
     };
     console.log(petData);
+    let petFamUrl = `/user/${this.context.user.id}/petFamily`;
     axios
       .post(`/api/user/${this.context.user.id}/createPet`, petData)
       .then(function() {
+        window.location = petFamUrl;
+        // window.location.href = `/user/${this.context.user.id}/petfamily`;
       });
+    // API.savePet(petData).then( data => {
+    //   console.log(data)
+    // }
   };
-
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
-
   handleDateChange = date => {
     this.setState({
       birthday: date
     });
     console.log(this.state.birthday);
   };
-
   render() {
     return (
       <div>
@@ -157,5 +156,4 @@ class CreatePet extends React.Component {
     );
   }
 }
-
 export default CreatePet;

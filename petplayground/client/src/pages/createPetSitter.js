@@ -14,6 +14,7 @@ class CreatePetSitter extends Component {
     other: ""
   };
   setFile = filePath => {
+    console.log(filePath)
     this.setState({
       file: filePath
     });
@@ -125,3 +126,7 @@ class CreatePetSitter extends Component {
   }
 }
 export default CreatePetSitter;
+
+
+
+

@@ -25,7 +25,7 @@ render() {
         return (
           <Pet
             key={item._id}
-            img={item.file}
+            img={item.image}
             name={item.name}
           />
         )
