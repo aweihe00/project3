@@ -1,4 +1,5 @@
 $orange: #f77000;
+
 .body-container {
   min-height: calc(100vh - 180px);
   .LoginPage {
@@ -19,9 +20,11 @@ $orange: #f77000;
     text-transform: uppercase;
   }
 }
+
 img {
   max-width: 100%;
 }
+
 .nav.nav-tabs {
   margin-bottom: 20px;
   margin-top: 20px;
@@ -31,4 +34,8 @@ img {
   .nav-link.active {
     border-bottom: solid thin #fff;
   }
+}
+
+.react-datepicker-wrapper {
+  margin-left: 15px;
 }
