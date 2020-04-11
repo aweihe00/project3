@@ -75,7 +75,7 @@ class AddDetailForm extends Component {
           <button
             type="submit"
             onClick={this.handleSubmitEvent}
-            className="btn btn-primary"
+            className="btn btn-warning"
           >
             Submit
           </button>
