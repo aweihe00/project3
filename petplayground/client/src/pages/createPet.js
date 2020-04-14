@@ -7,7 +7,7 @@ import UserContext from "../context/UserContext";
 import axios from "axios";
 
 function randomComponent(props) {
-  return <h1></h1>;
+  return <h1>Hello</h1>;
 }
 
 class CreatePet extends React.Component {

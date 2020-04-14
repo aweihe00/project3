@@ -1,5 +1,5 @@
 import React from "react";
-import AddDetail from "../components/AddDetail/addDetail";
+import AddDetail from "../components/AddDetail/addDetail.js";
 
 function AddDetailPage(props) {
   return (

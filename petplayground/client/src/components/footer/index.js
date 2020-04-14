@@ -1,10 +1,12 @@
 import React from "react";
 import "./style.scss";
-function footer() {
+
+function Footer() {
   return (
-    <footer className="footer">
+    <footer className="Footer">
       <span>PetPlayground 2020</span>
     </footer>
   );
 }
-export default footer;
+
+export default Footer;

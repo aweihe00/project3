@@ -3,6 +3,7 @@ import "./loginForm.scss";
 import { withRouter } from "react-router-dom";
 import UserContext from "../../context/UserContext";
 import Auth from "../../utils/Auth";
+
 class LoginForm extends Component {
   static contextType = UserContext;
   state = {
@@ -10,12 +11,14 @@ class LoginForm extends Component {
     password: "",
     err: false
   };
+
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
       [name]: value
     });
   };
+
   handleSubmitEvent = event => {
     event.preventDefault();
     console.log("Submited");
@@ -37,12 +40,13 @@ class LoginForm extends Component {
       });
     }
   };
+
   render() {
     return (
       <div className="LoginForm">
         {this.state.err ? (
           <div class="alert alert-danger" role="alert">
-            Username and/or password is incorrect
+            Username and or password is incorrect
           </div>
         ) : null}
         <form>
@@ -56,7 +60,7 @@ class LoginForm extends Component {
               value={this.state.username}
               onChange={this.handleInputChange}
             />
-                    </div>
+          </div>
           <div className="form-group">
             <label htmlFor="exampleInputPassword1">Password</label>
             <input
@@ -80,4 +84,5 @@ class LoginForm extends Component {
     );
   }
 }
+
 export default withRouter(LoginForm);

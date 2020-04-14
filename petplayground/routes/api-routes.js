@@ -84,7 +84,7 @@ module.exports = function(app) {
   app.get("/api/me", authWare, function(req, res) {
     res.json({ username: req.user.username, id: req.user._id });
   });
-  
+ 
   app.get("/api/protected", authWare, function(req, res) {
     const user = req.user;
     res.json({

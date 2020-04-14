@@ -8,10 +8,10 @@ class Header extends Component {
   handleLogOut = () => {
     Auth.logOut().then(() => {
       window.location.href = "/";
-  });
-};
+    });
+  };
 
-render() {
+  render() {
     return (
       <UserContext.Consumer>
         {context => {
@@ -19,7 +19,7 @@ render() {
             <header className="Header">
               <div className="row">
                 <div className="col-3 logo">
-                  <img src="/logo.png" alt="Pet Playground Logo" />
+                  <img src="/logo.png" alt="Pet Life Logo" />
                 </div>
                 <div className="col-9 text-right navbar">
                   {context.user ? (
@@ -55,4 +55,5 @@ render() {
     );
   }
 }
+
 export default Header;

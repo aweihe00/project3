@@ -3,13 +3,16 @@ import { Link } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import axios from "axios";
 import Pet from "../components/Family/index";
+
 class PetFamily extends React.Component {
   static contextType = UserContext;
+
   state = {
     pets: [],
     mounted: false,
     refreshed: false
   };
+
   componentDidMount() {
     if (!this.context.user) return;
     axios.get(`/api/user/${this.context.user.id}/petFamily`).then(res => {
@@ -20,6 +23,7 @@ class PetFamily extends React.Component {
       });
     });
   }
+
   componentDidUpdate() {
     if (this.state.mounted === false) {
       if (this.state.refreshed === false) {
@@ -38,6 +42,7 @@ class PetFamily extends React.Component {
       }
     }
   }
+
   render() {
     const { user } = this.context;
     return (
@@ -67,8 +72,5 @@ class PetFamily extends React.Component {
     );
   }
 }
+
 export default PetFamily;
-
-
-
-

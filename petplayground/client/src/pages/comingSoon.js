@@ -5,6 +5,6 @@ function CommingSoon() {
         <h1>This feature is Coming Soon...</h1>
     </div >
     )
-
 }
+
 export default CommingSoon;
