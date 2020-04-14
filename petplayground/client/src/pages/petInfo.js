@@ -1,5 +1,4 @@
 import React from "react";
-// import API from "../utils/API2";
 import axios from "axios";
 import PetInfoCard from "../components/petInfoCard/petInfoCard";
 import UserContext from "../context/UserContext";

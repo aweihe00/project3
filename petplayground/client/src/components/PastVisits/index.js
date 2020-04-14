@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import UserContext from "../../context/UserContext";
-import VisitTable from "../VisitTable";
+//import { Link } from "react-router-dom";
+//import axios from "axios";
+//import UserContext from "../../context/UserContext";
+//import VisitTable from "../VisitTable";
 
 function PastVisits(props) {
     return (

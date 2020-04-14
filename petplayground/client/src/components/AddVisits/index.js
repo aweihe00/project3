@@ -4,13 +4,16 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import PastVisits from "../PastVisits";
 import UserContext from "../../context/UserContext";
+
 class AddVisits extends Component {
   static contextType = UserContext;
+
   state = {
     date: "",
     doctorsName: "",
     hospital: ""
   };
+
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -18,7 +21,6 @@ class AddVisits extends Component {
     });
   };
   saveVisit = event => {
-    // event.preventDefault();
     let newVisit = {
       date: this.state.date,
       docName: this.state.doctorsName,
@@ -32,6 +34,7 @@ class AddVisits extends Component {
       })
     );
   };
+
   render() {
     return (
       <div className="VisitPage">
@@ -79,4 +82,5 @@ class AddVisits extends Component {
     );
   }
 }
+
 export default AddVisits;

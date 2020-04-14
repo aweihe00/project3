@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import UserContext from "../context/UserContext";
 import VisitTable from "../components/VisitTable";
+
 class Visits extends Component {
   static contextType = UserContext;
   state = {
@@ -14,6 +15,7 @@ class Visits extends Component {
     activePetVisit: [],
     activePet: {}
   };
+
   activePet = e => {
     let id = e.target.id;
     console.log(id);
@@ -27,6 +29,7 @@ class Visits extends Component {
       }
     });
   };
+
   componentDidMount() {
     let currentComponent = this;
     axios.get(`/api/user/${this.context.user.id}/petFamily`).then(response => {
@@ -42,9 +45,10 @@ class Visits extends Component {
       });
     });
   }
+
   componentDidUpdate() {
-    if (this.state.mounted == false) {
-      if (this.state.refreshed == false) {
+    if (this.state.mounted === false) {
+      if (this.state.refreshed === false) {
         let currentComponent = this;
         axios
           .get(`/api/user/${this.context.user.id}/petFamily`)
@@ -67,6 +71,7 @@ class Visits extends Component {
       }
     }
   }
+
   render() {
     return (
       <div>
@@ -88,6 +93,7 @@ class Visits extends Component {
             </li>
           ))}
         </ul>
+
         <div className="visit-table">
           {this.state.activePetVisit.length < 1 ? (
             <div className="alert alert-warning mt-4" role="alert">
@@ -100,7 +106,6 @@ class Visits extends Component {
                   <th scope="col">Date</th>
                   <th scope="col">Doctors name</th>
                   <th scope="col">Hospital</th>
-                  {/* <th scope="col">Details</th> */}
                 </tr>
               </thead>
               <tbody>
@@ -124,8 +129,5 @@ class Visits extends Component {
     );
   }
 }
+
 export default Visits;
-
-
-
-

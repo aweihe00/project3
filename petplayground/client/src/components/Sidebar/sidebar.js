@@ -2,6 +2,7 @@ import React from "react";
 import "./sidebar.scss";
 import { NavLink } from "react-router-dom";
 import { Consumer } from "../../context/UserContext";
+
 function Sidebar() {
   return (
     <div id="sidebar" className="col-3">
@@ -54,4 +55,5 @@ function Sidebar() {
     </div>
   );
 }
+
 export default Sidebar;

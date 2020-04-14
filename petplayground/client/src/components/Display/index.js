@@ -1,45 +1,35 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import axios from "axios";
 
-class PastVisits extends Component {
-    state = {
-        results: [],
-    }
-
-getVisit = res => {
-    axios.get('/api/visits').then(this.setState({ results: res.data }))
+function saveBook(book) {
+    axios.post("/api/saveVisits", book).then(console.log('set state as saved'))
 }
 
-render() {
+function Display(props) {
     return (
-        < >
-          <h2>Past Visits</h2>
-            <table class="table table-dark">
-                <thead>
-                    <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Doctors name</th>
-                        <th scope="col">Hospital</th>
-                        <th scope="col">Details</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        {this.state.results.map(result => (
-                            <>
-                                <td>{result.date}</td>
-                                <td>{result.doctorsName}</td>
-                                <td>{result.hospital}</td>
-                                <td><Link>See Details</Link></td>
-                            </>
-                            ))}
-                        </tr>
-                    </tbody>
-                </table>
-            </>
-        );
-    }
-}
+        <div className="card">
+            {props.results.map(result => (
+                <div className='text' key={result.id}>
+                    <h5 className="card-header">{result.volumeInfo.title}</h5>
+                    <div className="card-body">
+                        <h5 className="card-title">{result.volumeInfo.authors[0]}</h5>
+                        <p className="card-text">{result.volumeInfo.description}</p>
+                    </div>
 
-export default PastVisits;
+                    <a href={result.volumeInfo.infoLink} target="_blank" rel="noopener noreferrer" className="btn btn-outline-success">See More</a>
+                    <button onClick={() => {
+                        saveBook({
+                            title: result.volumeInfo.title,
+                            authors: result.volumeInfo.authors[0],
+                            description: result.volumeInfo.description,
+                            infoLink: result.volumeInfo.infoLink
+
+                        })
+                    }} className="btn btn-outline-dark">Save</button>
+                </div>
+            ))}
+
+        </div>
+    )
+}
+export default Display
