@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost/dbPet";
+  process.env.MONGODB_URI || "mongodb://<aweihe>:<Pistons00>@ds257495.mlab.com:57495/heroku_fnflf4qc";
 
 mongoose
   .connect(MONGODB_URI)
