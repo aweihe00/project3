@@ -4,7 +4,7 @@ import "./style.scss";
 function HomeBox() {
     return (
         <div className="card bg-dark text-white welcomeBox">
-            <img src="./catsdogs_banner.jpg" className="card-img welcomeImg" alt="cat and dog bannner" />
+            <img src="./dogncat_banner.jpg" className="card-img welcomeImg" alt="cat and dog bannner" />
             <div className="card-img-overlay">
                 <h3 className="card-title welcome">Welcome to Pet Playground</h3>
                 <h2>For your pets.</h2>
