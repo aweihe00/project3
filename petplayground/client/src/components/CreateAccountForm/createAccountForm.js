@@ -80,7 +80,7 @@ class CreateAccountForm extends Component {
           <button
             onClick={this.handleSubmitEvent}
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-success"
             disabled={
               this.state.password !== this.state.confirmPassword ||
               this.state.password === ""

@@ -96,8 +96,8 @@ class Visits extends Component {
 
         <div className="visit-table">
           {this.state.activePetVisit.length < 1 ? (
-            <div className="alert alert-warning mt-4" role="alert">
-              This pet doesn't have doctor visits
+            <div className="alert alert-info mt-4" role="alert">
+              This pet doesn't have any doctor visits on record.
             </div>
           ) : (
             <table className="table table-striped">

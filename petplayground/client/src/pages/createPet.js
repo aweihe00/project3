@@ -158,7 +158,7 @@ class CreatePet extends React.Component {
           <button
             onClick={this.submitData}
             type="submit"
-            className="btn btn-warning"
+            className="btn btn-success"
           >
             Submit Pet
           </button>
