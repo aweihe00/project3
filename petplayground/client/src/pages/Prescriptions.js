@@ -103,16 +103,16 @@ class PrescriptionsPage extends Component {
           <div className="col-12 text-right">
             <Link
               to={`/user/${userId}/prescription/addDetail/${this.state.activePet.id}`}
-              className="btn btn-warning btn-lg"
+              className="btn btn-secondary btn-lg"
             >
-              Add new prescription for {this.state.activePet.name}!
+              Add New Prescription for {this.state.activePet.name}!
             </Link>
           </div>
           <div className="col-12">
             {this.state.activePetPrescription.length < 1 ? (
               <>
-                <div className="alert alert-warning mt-4" role="alert">
-                  This pet doesn't have prescriptions
+                <div className="alert alert-info mt-4" role="alert">
+                  Your pet doesn't have any prescriptions.
                 </div>
               </>
             ) : (

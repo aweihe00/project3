@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+//import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "./sitterCard.scss";
 
 function SitterCard(props) {
@@ -22,7 +22,7 @@ function SitterCard(props) {
           </div>
           <div className="col-md-2 text-center buttons">
             <button
-              className="btn btn-secondary"
+              className="btn btn-danger"
               onClick={() => props.deleteSitter(props.id)}
             >
               Remove

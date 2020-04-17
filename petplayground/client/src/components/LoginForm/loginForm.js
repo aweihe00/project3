@@ -75,7 +75,7 @@ class LoginForm extends Component {
           <button
             type="submit"
             onClick={this.handleSubmitEvent}
-            className="btn btn-primary"
+            className="btn btn-success"
           >
             Submit
           </button>

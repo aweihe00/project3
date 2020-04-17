@@ -69,17 +69,17 @@ class PetSitter extends Component {
           <div className="col-6 text-right">
             <Link
               to={`/user/${user.id}/petSitters/createPetSitter`}
-              className="btn btn-warning btn-lg"
+              className="btn btn-secondary btn-lg"
             >
-              Add a pet sitter!
+              Add a Pet Sitter!
             </Link>
           </div>
         </div>
         <div className="row">
           <div className="col-12">
             {this.state.petSitters < 1 ? (
-              <div className="alert alert-warning mt-4" role="alert">
-                You don't have pet sitters in your records
+              <div className="alert alert-info mt-4" role="alert">
+                You don't have any sitters in your records.
               </div>
             ) : null}
             {this.state.petSitters.map(item => (

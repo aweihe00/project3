@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "./petInfoCard.scss";
 
 function PetInfoCard(props) {
@@ -55,7 +55,7 @@ function PetInfoCard(props) {
           <Link
             to=""
             onClick={props.deletePetCB.bind(this, props.id)}
-            className="btn btn-secondary btn-sm"
+            className="btn btn-danger btn-sm"
           >
             Remove
           </Link>
