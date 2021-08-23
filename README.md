@@ -11,7 +11,7 @@ Password: testpassword123
 Screen Shot 2019-10-09 at 4 47 48 PM
 
 Landing page
-PetLife is a simple application for storing pet information. On the landing page we have two options:
+PetPlayground is a simple application for storing pet information. On the landing page we have two options:
 
 Login: Redirects the user to the login page
 Create Account: Redirects users to a create account page
@@ -36,4 +36,4 @@ Pet Sitters Page
 The pet sitter page displays some basic information about their pet sitters as well as allows the user to manage pet sitters by adding and removing them.
 
 Overview
-Pet Life is a MERN stack web application designed to be a one stop website for keeping track of all your pets, pet information, doctors visits, prescriptions and sitters information
+Pet Playground is a MERN stack web application designed to be a one stop website for keeping track of all your pets, pet information, doctors visits, prescriptions and sitters information
