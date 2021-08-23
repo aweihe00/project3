@@ -5,6 +5,7 @@ React.js - MVC front-end framework
 Node.js - JavaScript runtime
 npm - Node package manager
 Sass (or scss) - CSS framework
+
 Test account credentials
 Username: test
 Password: testpassword123
